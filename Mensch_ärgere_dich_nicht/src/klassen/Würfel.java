@@ -2,10 +2,20 @@ package klassen;
 
 public class Würfel {
 
-	public int seiten = 6;  // falls ich mal nen Würfel mit mehr Seiten machen will lol für Extreme-MÄDN
-	
-	
-	//public würfeln () {}
-		//augen = würfelfunktion randint (1-seiten)
-		//return augen g
+	public int min = 1;
+	public int max;		//Anzahl der AUgen des Würfels
+
+	public Würfel() {
+		this.max = 6;
+	}
+
+	public Würfel(int seiten) {		//überladener constructor falls ich mal nen mega coolen Würfel machen will
+		this.max = seiten;		
+	}
+
+	public int würfeln() {
+		int Augen = (int) (Math.random() * max) + min;
+		return Augen;
+
+	}
 }
