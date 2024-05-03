@@ -3,9 +3,9 @@ package klassen;
 public class Würfel {
 
 	public int min = 1;
-	public int max;		//Anzahl der AUgen des Würfels
+	public int max;		//Anzahl der Augen des Würfels
 
-	public Würfel() {
+	public Würfel() {				// 6 Seitiger Würfel im default Constructor
 		this.max = 6;
 	}
 
