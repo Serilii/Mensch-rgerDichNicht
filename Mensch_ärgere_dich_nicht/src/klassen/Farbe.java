@@ -11,6 +11,6 @@ public class Farbe {
        this.figur_1 = new Figur(farbe);
        this.figur_2 = new Figur(farbe);
        this.figur_3 = new Figur(farbe);
-       this.figur_4 = new Figur(farbe);
+       this.figur_4 = new Figur(farbe); //test
     }
 }
