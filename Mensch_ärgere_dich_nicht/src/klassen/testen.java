@@ -3,8 +3,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 
-public class testen extends JPanel{
-	public static void main (String args []) {
+public class testen extends JPanel {
+	public static void main (String args []) throws InterruptedException {
 
 		
 		Spielfeld Spielfeld = new Spielfeld();
@@ -17,41 +17,33 @@ public class testen extends JPanel{
 		// 	Spielfeld.array[11][i].nächstes = Spielfeld.array[11][i+1];	
 		// }
 
-		// Figur test = new Figur("PINK", 0, Spielfeld, 1 , 1);
+		Figur test = new Figur("PINK", 0, Spielfeld, 1 , 7);
 
 		
-		Würfel würfel = new Würfel(20);
+		Würfel würfel = new Würfel(6);
 
-		// int x = würfel.würfeln();
+		int x = würfel.würfeln();
 		// test.alle_felder_ziehen(x);
 
-		// System.out.println("Du hast eine " + x + " gewürfelt.");
+		System.out.println("Du hast eine " + x + " gewürfelt.");
 
 		Spielfeld.verbinde_alle_felder();
 		Spielfeld.print_Spielfeld();
 
-        for (int i = 11; i>=1; i--)  {
-			System.out.println();
-			for (int j = 1; j<12; j++)  {
-				if (Spielfeld.array[j][i].figur == null){
-				System.out.print(String.format("%02d",(Spielfeld.array[i][j].x_koordinate)) + "|" + String.format("%02d",(Spielfeld.array[i][j].y_koordinate)) + " "); }
-				else {
-					System.out.print("xoxo  ");
-				}
-        }
 
-		// for (int i = 11; i>=1; i--)  {
-		// 	System.out.println();
-		// 	for (int j = 1; j<12; j++)  {
-		// 		if (array[i][j].figur == null){
-		// 		System.out.print("◯"); }
-		// 		else {
-		// 			System.out.print("⬤");
-		// 		}
-        // }
+		
+		for (int i= 0; i<20; i++){
+			x = würfel.würfeln();
+			test.alle_felder_ziehen(x);
 
+			System.out.print("\033[H\033[2J");  
+			System.out.flush();
+			
+			System.out.println("Du hast eine " + x + " gewürfelt.");
+			Spielfeld.print_Spielfeld();  
+			Thread.sleep(500);
 
-		// ◯ ⬤
-}
-	
-} }
+		}
+		
+
+	}}

@@ -1,5 +1,6 @@
 package klassen;
 
+
 public class Spielfeld {    //Klasse für das gesamte Spielfeld
 
     public Feld[][] array;
@@ -29,20 +30,34 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
         for (int i = 11; i>=1; i--)  {
 			System.out.println();
 			for (int j = 1; j<12; j++)  {
-                if (this.array[j][i].nächstes != null) {
+                if (this.array[j][i].figur != null){
+                    System.out.print("🔵");
+                }
+                else if (this.array[j][i].nächstes != null) {
                     System.out.print("🔴");
                 }
+                else if (this.array[j][i].nächstes_parken != null) {
+                    System.out.print("🟢");
+                }
 				else if (this.array[j][i].figur == null){
-				System.out.print("🔘"); }
-				else if (this.array[j][i].figur != null){
-					System.out.print("🔵");
-				} //falss ich das Feld mal mit Koordinaten ausgeben will: 		// 		System.out.print(String.format("%02d",(array[i][j].x_koordinate)) + "|" + String.format("%02d",(array[i][j].y_koordinate)) + " "); }
+				System.out.print("🔘"); 
+                }
+				 
+                //falss ich das Feld mal mit Koordinaten ausgeben will: 		// 		System.out.print(String.format("%02d",(array[i][j].x_koordinate)) + "|" + String.format("%02d",(array[i][j].y_koordinate)) + " "); }
 
+            }
         }
-
     }
 
-}
+    public void print_Spielfeld_koordinaten(){
+    for (int i = 11; i>=1; i--)  {
+        System.out.println();
+        for (int j = 1; j<12; j++)  {
+            if (this.array[j][i].figur == null){
+            System.out.print(String.format("%02d",(this.array[i][j].x_koordinate)) + "|" + String.format("%02d",(Spielfeld.array[i][j].y_koordinate)) + " "); }
+            else {
+                System.out.print("xoxo  ");
+            }}}}
 
 public void verbinde_alle_felder(){ //ja trauriger weise war es einfacher alles per copy paste und vorzeichen-ändern per hand zu lösen als eine unnötig komplizierte schleife für genau das hier auszudenken sorry
     Feld momentan = this.array[1][7];
@@ -97,5 +112,28 @@ public void verbinde_alle_felder(){ //ja trauriger weise war es einfacher alles 
            momentan.nächstes = this.array[momentan.x_koordinate ][momentan.y_koordinate +1 ];
            momentan = momentan.nächstes;
            }
-}
+
+           momentan = this.array[1][6];
+           for (int j = 0; j < 4; j++ ) {
+            momentan.nächstes_parken = this.array[momentan.x_koordinate + 1][momentan.y_koordinate ];
+            momentan = momentan.nächstes_parken;
+            }
+            momentan = this.array[6][11];
+            for (int j = 0; j < 4; j++ ) {
+            momentan.nächstes_parken = this.array[momentan.x_koordinate][momentan.y_koordinate -1 ];
+            momentan = momentan.nächstes_parken;
+            }
+            momentan = this.array[11][6];
+            for (int j = 0; j < 4; j++ ) {
+            momentan.nächstes_parken = this.array[momentan.x_koordinate-1][momentan.y_koordinate ];
+            momentan = momentan.nächstes_parken;
+            }
+            momentan = this.array[6][1];
+            for (int j = 0; j < 4; j++ ) {
+            momentan.nächstes_parken = this.array[momentan.x_koordinate][momentan.y_koordinate +1 ];
+            momentan = momentan.nächstes_parken;
+            }
+        }
+
+
 }

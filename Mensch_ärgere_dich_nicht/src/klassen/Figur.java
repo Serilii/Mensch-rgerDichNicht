@@ -16,6 +16,7 @@ public class Figur {
 		this.nummer = nummer;
 		this.feld = Spielfeld.array[x_koordinate][y_koordinate];
 		this.feld.figur = this;
+		
 	}
 
 	// public Figur(String farbe, int x, int y){
@@ -24,15 +25,20 @@ public class Figur {
 	// }
 
 	public void ein_feld_ziehen() { // weiterziehen um ein einzelnes Feld
-		if (gezogene_felder < 39) {
+		if (gezogene_felder >=42){		
+			return;
+		}
+		else if (gezogene_felder < 39) {
 		this.feld.figur = null;		//lösen vom feld
 		this.feld = this.feld.nächstes; //diese figur zeigt auf das nächste feld
 		this.gezogene_felder += 1;
 		this.feld.figur = this; //das neue feld dieser figur zeigt zurück auf diese figur 
-		} else {
+		} 
+		else {
+			this.feld.figur = null;
 			this.feld = this.feld.nächstes_parken;
+			this.feld.figur = this;
 		}
-	
 	}
 
 	public void alle_felder_ziehen(int Anzahl) { // Loop für Anzahl der "Felder" um die man einen "Schritt_macht"
