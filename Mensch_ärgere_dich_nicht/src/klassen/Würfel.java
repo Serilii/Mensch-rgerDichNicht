@@ -14,7 +14,7 @@ public class Würfel {
 	}
 
 	public int würfeln() {
-		int Augen = (int) (Math.random() * max) + min;
+		int Augen = (int) (Math.random() * max) + min;		//würfel Funktion returnt Augen als int
 		return Augen;
 
 	}

@@ -9,7 +9,7 @@ public class Feld {
 	public Figur figur;
 
 	public Feld(){
-		//something with no parameters
+		//default Constructor
 	}
 	
 	public Feld(int x , int y){
@@ -18,4 +18,4 @@ public class Feld {
 	}
 
 	//39 felder gezogen -> parken bei nächstes_parken;
-}
+} 
