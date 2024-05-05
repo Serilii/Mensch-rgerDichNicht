@@ -2,23 +2,100 @@ package klassen;
 
 public class Spielfeld {    //Klasse für das gesamte Spielfeld
 
+    public Feld[][] array;
+
     public Spielfeld(){ //wenn das Spielfeld mit default generiert wird soll direkt das normale Spielfeld generiert werden
     
-        Feld [][] array = new Feld[11][11];   // initialisiere ein 11x11 Array und jeder Eintrag ist ein Feld mit den richtigen koordinaten
-        for (int i = 0; i<11; i++)  {
-            for (int j = 0; j<11; j++) {
-            array[i][j] = new Feld(i + 1,j + 1);    //die +1 machen, dass die Koordinaten nicht bei 0 sondern 1 anfangen
+        this.array = new Feld[12][12];   // initialisiere ein 11x11 Array und jeder Eintrag ist ein Feld mit den richtigen koordinaten
+        for (int i = 0; i<12; i++)  {
+            for (int j = 0; j<12; j++) {
+            array[j][i] = new Feld(j,i);    //die +1 machen, dass die Koordinaten nicht bei 0 sondern 1 anfangen
             }
         }
 
 
         //generiere jede Farbe , jede Farbe generiert automatisch 4 Figuren (ohne Startfeld bis jetzt)
-        Farbe Blau = new Farbe("Blau");
-        Farbe Gelb = new Farbe("Gelb");
-        Farbe Rot = new Farbe("Rot");
-        Farbe Grün = new Farbe("Grün");
+        Farbe Blau = new Farbe("Blau", this, 1,11);
+        Farbe Gelb = new Farbe("Gelb", this,10, 11 );
+        Farbe Rot = new Farbe("Rot", this, 1, 2);
+        Farbe Grün = new Farbe("Grün",this, 10, 2);
         
 
-    }
+    } //Spielfeld Constructor ende
     
+    
+
+    public void print_Spielfeld(){      //konsolenausgabe für ein erstelltes Spielfeld
+        for (int i = 11; i>=1; i--)  {
+			System.out.println();
+			for (int j = 1; j<12; j++)  {
+                if (this.array[j][i].nächstes != null) {
+                    System.out.print("🔴");
+                }
+				else if (this.array[j][i].figur == null){
+				System.out.print("🔘"); }
+				else if (this.array[j][i].figur != null){
+					System.out.print("🔵");
+				} //falss ich das Feld mal mit Koordinaten ausgeben will: 		// 		System.out.print(String.format("%02d",(array[i][j].x_koordinate)) + "|" + String.format("%02d",(array[i][j].y_koordinate)) + " "); }
+
+        }
+
+    }
+
+}
+
+public void verbinde_alle_felder(){ //ja trauriger weise war es einfacher alles per copy paste und vorzeichen-ändern per hand zu lösen als eine unnötig komplizierte schleife für genau das hier auszudenken sorry
+    Feld momentan = this.array[1][7];
+
+    for (int i = 0; i < 4; i++ ) {
+         momentan.nächstes = this.array[momentan.x_koordinate+1 ][momentan.y_koordinate];
+         momentan = momentan.nächstes;
+        }
+        for (int j = 0; j < 4; j++ ) {
+            momentan.nächstes = this.array[momentan.x_koordinate][momentan.y_koordinate +1 ];
+            momentan = momentan.nächstes;
+           }
+        for (int j = 0; j < 2; j++ ) {
+        momentan.nächstes = this.array[momentan.x_koordinate+1 ][momentan.y_koordinate];
+        momentan = momentan.nächstes;
+        }
+
+        for (int i = 0; i < 4; i++ ) {
+            momentan.nächstes = this.array[momentan.x_koordinate ][momentan.y_koordinate-1];
+            momentan = momentan.nächstes;
+           }
+           for (int j = 0; j < 4; j++ ) {
+               momentan.nächstes = this.array[momentan.x_koordinate +1][momentan.y_koordinate];
+               momentan = momentan.nächstes;
+              }
+           for (int j = 0; j < 2; j++ ) {
+           momentan.nächstes = this.array[momentan.x_koordinate][momentan.y_koordinate -1];
+           momentan = momentan.nächstes;
+           }
+           for (int i = 0; i < 4; i++ ) {
+            momentan.nächstes = this.array[momentan.x_koordinate -1 ][momentan.y_koordinate];
+            momentan = momentan.nächstes;
+           }
+           for (int j = 0; j < 4; j++ ) {
+               momentan.nächstes = this.array[momentan.x_koordinate][momentan.y_koordinate-1];
+               momentan = momentan.nächstes;
+              }
+           for (int j = 0; j < 2; j++ ) {
+           momentan.nächstes = this.array[momentan.x_koordinate -1 ][momentan.y_koordinate];
+           momentan = momentan.nächstes;
+           }
+
+           for (int i = 0; i < 4; i++ ) {
+            momentan.nächstes = this.array[momentan.x_koordinate ][momentan.y_koordinate+1 ];
+            momentan = momentan.nächstes;
+           }
+           for (int j = 0; j < 4; j++ ) {
+               momentan.nächstes = this.array[momentan.x_koordinate - 1][momentan.y_koordinate];
+               momentan = momentan.nächstes;
+              }
+           for (int j = 0; j < 2; j++ ) {
+           momentan.nächstes = this.array[momentan.x_koordinate ][momentan.y_koordinate +1 ];
+           momentan = momentan.nächstes;
+           }
+}
 }

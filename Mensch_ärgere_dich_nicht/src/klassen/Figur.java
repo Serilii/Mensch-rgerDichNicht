@@ -9,10 +9,13 @@ public class Figur {
 	public Feld aus_feld; // das Feld worauf die Figur das Spiel beginnt und hinkommt wenn sie rausgeschmissen wird
 	public int gezogene_felder = 0;	//39 felder gezogen -> parken bei nächstes_parken;
 	public Feld start_feld; //erstes Feld falls die Figur mit einer 6 reingewürfelt wird , falls das Startfeld in die Figurenklasse kommt
+	public int nummer;
 
-
-	public Figur(String farbe){
+	public Figur(String farbe, int nummer, Spielfeld Spielfeld, int x_koordinate, int y_koordinate){
 		this.farbe = farbe;
+		this.nummer = nummer;
+		this.feld = Spielfeld.array[x_koordinate][y_koordinate];
+		this.feld.figur = this;
 	}
 
 	// public Figur(String farbe, int x, int y){
