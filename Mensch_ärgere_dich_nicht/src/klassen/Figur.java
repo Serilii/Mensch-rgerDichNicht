@@ -24,32 +24,65 @@ public class Figur {
 
 	// }
 
+public boolean prüfe_ob_ziel_frei(int Anzahl){
+	Feld check = this.feld;
+	int check_gezogene_felder = this.gezogene_felder;
+		for (int i = 0; i < Anzahl; i++) {
+				if (check_gezogene_felder < 39){
+				check = check.nächstes;
+				check_gezogene_felder += 1;
+				} else if (check_gezogene_felder < 42){
+					check= check.nächstes_parken;
+					check_gezogene_felder+=1;
+				}
+		}
+		if (check.figur != null) {
+			return false;
+		}
+		else {
+			return true;
+		}
+
+}
+
+
 	public void ein_feld_ziehen() { // weiterziehen um ein einzelnes Feld
-		if (gezogene_felder >=42){		
-			return;
+		if (gezogene_felder >=43){		
+			;
 		}
 		else if (gezogene_felder < 39) {
-		this.feld.figur = null;		//lösen vom feld
+		
 		this.feld = this.feld.nächstes; //diese figur zeigt auf das nächste feld
 		this.gezogene_felder += 1;
-		this.feld.figur = this; //das neue feld dieser figur zeigt zurück auf diese figur 
+		
 		} 
 		else {
-			this.feld.figur = null;
+			// this.feld.figur = null;		//müssten eigentlich raus diese Zeilen
 			this.feld = this.feld.nächstes_parken;
-			this.feld.figur = this;
+			this.gezogene_felder += 1;
+			// this.feld.figur = this;	//müssten eigentlich raus diese Zeilen
 		}
+
 	}
 
 	public void alle_felder_ziehen(int Anzahl) { // Loop für Anzahl der "Felder" um die man einen "Schritt_macht"
-		for (int i = 0; i < Anzahl; i++ ) {
-			this.ein_feld_ziehen();
+		if (prüfe_ob_ziel_frei(Anzahl)) {
+			this.feld.figur = null;		//lösen vom feld
+			for (int i = 0; i < Anzahl; i++ ) {
+				this.ein_feld_ziehen();
+				}
+				this.feld.figur = this; //das neue feld dieser figur zeigt zurück auf diese figur 
+		}
+		else {
+			; //pass
 		}
 	}
+
 
 	public void einsteigen() { // mit einer 6 rausgewürfelt werden
 		this.feld = this.start_feld;
 	}
+
 
 	public void rausfliegen() { // von einer Figur rausgeschmissen werden
 		this.gezogene_felder = 0;

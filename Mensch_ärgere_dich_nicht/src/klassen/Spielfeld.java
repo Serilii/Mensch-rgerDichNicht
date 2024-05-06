@@ -40,7 +40,7 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
                     System.out.print("🟢");
                 }
 				else if (this.array[j][i].figur == null){
-				System.out.print("🔘"); 
+				System.out.print("⚪"); 
                 }
 				 
                 //falss ich das Feld mal mit Koordinaten ausgeben will: 		// 		System.out.print(String.format("%02d",(array[i][j].x_koordinate)) + "|" + String.format("%02d",(array[i][j].y_koordinate)) + " "); }
@@ -54,7 +54,7 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
         System.out.println();
         for (int j = 1; j<12; j++)  {
             if (this.array[j][i].figur == null){
-            System.out.print(String.format("%02d",(this.array[i][j].x_koordinate)) + "|" + String.format("%02d",(Spielfeld.array[i][j].y_koordinate)) + " "); }
+            System.out.print(String.format("%02d",(this.array[i][j].x_koordinate)) + "|" + String.format("%02d",(this.array[i][j].y_koordinate)) + " "); }
             else {
                 System.out.print("xoxo  ");
             }}}}

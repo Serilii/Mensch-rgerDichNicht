@@ -9,41 +9,52 @@ public class testen extends JPanel {
 		
 		Spielfeld Spielfeld = new Spielfeld();
 
-		// for (int i = 1; i < 11; i++){
-		// 	Spielfeld.array[i][1].nächstes = Spielfeld.array[i+1][1];	
-		// }
-
-		// for (int i = 1; i < 11; i++){
-		// 	Spielfeld.array[11][i].nächstes = Spielfeld.array[11][i+1];	
-		// }
-
 		Figur test = new Figur("PINK", 0, Spielfeld, 1 , 7);
+		Figur gegner = new Figur("Schwarz", 0, Spielfeld, 4, 7 );
+		Figur gegner2 = new Figur("Schwarz", 0, Spielfeld, 5,  10);
 
-		
 		Würfel würfel = new Würfel(6);
 
 		int x = würfel.würfeln();
 		// test.alle_felder_ziehen(x);
 
-		System.out.println("Du hast eine " + x + " gewürfelt.");
+		// System.out.println("Du hast eine " + x + " gewürfelt.");
 
+		System.out.print("\033[H\033[2J"); 
 		Spielfeld.verbinde_alle_felder();
 		Spielfeld.print_Spielfeld();
 
+		test.alle_felder_ziehen(1);
+
+		Thread.sleep(500);
+		System.out.print("\033[H\033[2J"); 
+		Spielfeld.print_Spielfeld();
+
+		test.alle_felder_ziehen(5);
+		
+		Thread.sleep(500);
+		System.out.print("\033[H\033[2J"); 
+		Spielfeld.print_Spielfeld();
+
+		test.alle_felder_ziehen(5);
+
+		Thread.sleep(500);
+		System.out.print("\033[H\033[2J"); 
+		Spielfeld.print_Spielfeld();
 
 		
-		for (int i= 0; i<20; i++){
-			x = würfel.würfeln();
-			test.alle_felder_ziehen(x);
+		// for (int i= 0; i<20; i++){
+		// 	x = würfel.würfeln();
+		// 	test.alle_felder_ziehen(x);
 
-			System.out.print("\033[H\033[2J");  
-			System.out.flush();
+		// 	System.out.print("\033[H\033[2J");  
+		// 	System.out.flush();
 			
-			System.out.println("Du hast eine " + x + " gewürfelt.");
-			Spielfeld.print_Spielfeld();  
-			Thread.sleep(500);
+		// 	System.out.println("Du hast eine " + x + " gewürfelt.");
+		// 	Spielfeld.print_Spielfeld();  
+		// 	Thread.sleep(500);
 
-		}
+		// }
 		
 
 	}}
