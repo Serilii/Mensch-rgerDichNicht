@@ -3,7 +3,7 @@ package klassen;
 public class Figur {
 	// public int x_koordinate; //wenn nötig
 	// public int y_koordinate; //wenn nötig
-	public String farbe; // Farbe zum abgleichen fürs rausschmeissen oder ob besetzt von gleicher Farbe
+	public Farbe farbe; // Oberklasse der Farbe
 	public boolean geparkt = false; // wenn alle Figuren einer Farbe geparkt: gewonnen
 	public Feld feld; // vielleicht lieber Feld koordinaten in die Feldklasse verlagern
 	public Feld aus_feld; // das Feld worauf die Figur das Spiel beginnt und hinkommt wenn sie rausgeschmissen wird
@@ -11,11 +11,13 @@ public class Figur {
 	public Feld start_feld; //erstes Feld falls die Figur mit einer 6 reingewürfelt wird , falls das Startfeld in die Figurenklasse kommt
 	public int nummer;
 
-	public Figur(String farbe, int nummer, Spielfeld Spielfeld, int x_koordinate, int y_koordinate){
+	public Figur(Farbe farbe, int nummer, Spielfeld Spielfeld, int x_koordinate, int y_koordinate){
 		this.farbe = farbe;
 		this.nummer = nummer;
 		this.feld = Spielfeld.array[x_koordinate][y_koordinate];
+		this.aus_feld = this.feld;
 		this.feld.figur = this;
+		this.start_feld = this.farbe.startFeld;
 		
 	}
 
@@ -60,6 +62,7 @@ public boolean prüfe_ob_ziel_frei(int Anzahl){
 			// this.feld.figur = null;		//müssten eigentlich raus diese Zeilen
 			this.feld = this.feld.nächstes_parken;
 			this.gezogene_felder += 1;
+			this.geparkt = true;
 			// this.feld.figur = this;	//müssten eigentlich raus diese Zeilen
 		}
 
@@ -80,12 +83,16 @@ public boolean prüfe_ob_ziel_frei(int Anzahl){
 
 
 	public void einsteigen() { // mit einer 6 rausgewürfelt werden
+		this.feld.figur = null;
 		this.feld = this.start_feld;
+		this.feld.figur = this;
 	}
 
 
 	public void rausfliegen() { // von einer Figur rausgeschmissen werden
 		this.gezogene_felder = 0;
+		this.feld.figur = null;
 		this.feld = this.aus_feld;
+		this.feld.figur = this;
 	}
 }

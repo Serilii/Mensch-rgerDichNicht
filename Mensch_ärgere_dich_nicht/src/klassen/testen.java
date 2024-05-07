@@ -9,9 +9,10 @@ public class testen extends JPanel {
 		
 		Spielfeld Spielfeld = new Spielfeld();
 
-		Figur test = new Figur("PINK", 0, Spielfeld, 1 , 7);
-		Figur gegner = new Figur("Schwarz", 0, Spielfeld, 4, 7 );
-		Figur gegner2 = new Figur("Schwarz", 0, Spielfeld, 5,  10);
+		Farbe Blau = new Farbe("Blau", Spielfeld, 1,11, Spielfeld.array[1][7]);
+		Figur test = new Figur(Blau, 0, Spielfeld, 1 , 7 );
+		Figur gegner = new Figur(Blau, 0, Spielfeld, 4, 7 );
+		Figur gegner2 = new Figur(Blau, 0, Spielfeld, 5,  10);
 
 		Würfel würfel = new Würfel(6);
 
@@ -42,6 +43,7 @@ public class testen extends JPanel {
 		System.out.print("\033[H\033[2J"); 
 		Spielfeld.print_Spielfeld();
 
+		
 		
 		// for (int i= 0; i<20; i++){
 		// 	x = würfel.würfeln();

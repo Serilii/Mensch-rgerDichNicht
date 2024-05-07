@@ -13,13 +13,17 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
             array[j][i] = new Feld(j,i);    //die +1 machen, dass die Koordinaten nicht bei 0 sondern 1 anfangen
             }
         }
-
+        //bestimme die Startfelder der 4 Spieler
+        Feld Startfeld_links = this.array[1][7];
+        Feld Startfeld_oben = this.array[7][11];
+        Feld Startfeld_recht = this.array[11][5];
+        Feld Startfeld_unten = this.array[5][1];
 
         //generiere jede Farbe , jede Farbe generiert automatisch 4 Figuren (ohne Startfeld bis jetzt)
-        Farbe Blau = new Farbe("Blau", this, 1,11);
-        Farbe Gelb = new Farbe("Gelb", this,10, 11 );
-        Farbe Rot = new Farbe("Rot", this, 1, 2);
-        Farbe Grün = new Farbe("Grün",this, 10, 2);
+        Farbe Blau = new Farbe("Blau", this, 1,11, Startfeld_links);
+        Farbe Gelb = new Farbe("Gelb", this,10, 11 , Startfeld_oben);
+        Farbe Rot = new Farbe("Rot", this, 1, 2, Startfeld_recht);
+        Farbe Grün = new Farbe("Grün",this, 10, 2, Startfeld_unten);
         
 
     } //Spielfeld Constructor ende
