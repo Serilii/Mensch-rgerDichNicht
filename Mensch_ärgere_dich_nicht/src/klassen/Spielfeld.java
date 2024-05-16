@@ -26,6 +26,8 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
         Farbe Grün = new Farbe("Grün",this, 10, 2, Startfeld_unten);
         
 
+        this.verbinde_alle_felder();
+
     } //Spielfeld Constructor ende
     
     
