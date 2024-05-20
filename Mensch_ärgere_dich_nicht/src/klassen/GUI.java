@@ -2,6 +2,8 @@ package klassen;
 import java.awt.*;
 import javax.swing.*;
 
+import GUI.MyLayeredPane;
+import GUI.MyPanel;
 import GUI.Spielbrett_Panel;
 
 
@@ -48,18 +50,22 @@ public class GUI {
     panel_links.add(button_links_4);
     panel_oben.add(new JButton("oben" ));
     
-    GridLayout layout_mitte = new GridLayout(11,11);
-    panel_mitte.setLayout(layout_mitte);
-    
+
+    JLayeredPane layerPane = new JLayeredPane();
+    layerPane.setBounds(0,0,1100, 1100);
+
     //die unterpanele werden dem main panel zugeordnet mit position im borderlayout
     panel_border_main.add(panel_mitte, BorderLayout.CENTER);
     panel_border_main.add(panel_links, BorderLayout.WEST);
     panel_border_main.add(panel_oben, BorderLayout.NORTH);
 
 
+    
+
+
     // fenster.pack();
-    fenster.setVisible(true);
     fenster.getContentPane().add(panel_border_main);
+    fenster.setVisible(true);
     
 
 }
