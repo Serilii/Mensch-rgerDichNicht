@@ -15,7 +15,7 @@ public class testen extends JPanel {
 
 		Spielfeld Spielfeld = new Spielfeld();
 
-		Farbe Blau = new Farbe("Blau", Spielfeld, 1,11, Spielfeld.array[1][7]);
+		Farbe Blau = new Farbe("Blau", Spielfeld, 1,11, Spielfeld.feldarray[1][7]);
 		Figur test = new Figur(Blau, 0, Spielfeld, 1 , 7 );
 		Figur gegner = new Figur(Blau, 0, Spielfeld, 4, 7 );
 		Figur gegner2 = new Figur(Blau, 0, Spielfeld, 5,  10);

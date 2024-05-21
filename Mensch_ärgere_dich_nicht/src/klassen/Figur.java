@@ -14,7 +14,7 @@ public class Figur {
 	public Figur(Farbe farbe, int nummer, Spielfeld Spielfeld, int x_koordinate, int y_koordinate){
 		this.farbe = farbe;
 		this.nummer = nummer;
-		this.feld = Spielfeld.array[x_koordinate][y_koordinate];
+		this.feld = Spielfeld.feldarray[x_koordinate][y_koordinate];
 		this.aus_feld = this.feld;
 		this.feld.figur = this;
 		this.start_feld = this.farbe.startFeld;
