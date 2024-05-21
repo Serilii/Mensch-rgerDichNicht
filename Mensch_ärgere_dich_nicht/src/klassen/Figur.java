@@ -33,15 +33,19 @@ public boolean prüfe_ob_ziel_frei(int Anzahl){
 				if (check_gezogene_felder < 39){
 				check = check.nächstes;
 				check_gezogene_felder += 1;
-				} else if (check_gezogene_felder < 42){
+				} else if (check_gezogene_felder < 43){
 					check= check.nächstes_parken;
 					check_gezogene_felder+=1;
+				} else if (check_gezogene_felder == 43) {
+					;
 				}
 		}
-		if (check.figur != null) {
+		if (check.figur != null  && check.figur.farbe == this.farbe) {	//wenn das Zielfeld mit einer Figur dieser Farbe besetzt ist: nix
 			return false;
-		}
-		else {
+		}	else if (check.figur!= null && check.figur.farbe != this.farbe) { //wenn das Zielfeld mit einer Figur einer anderen Farbe besetzt ist: rauswerfen und hinlaufen
+			check.figur.rausfliegen();
+			return true;			// wenn das Feld leer ist( also ausschlussverfahren ) dann grünes Licht und lets go
+		}	else {
 			return true;
 		}
 
@@ -82,7 +86,7 @@ public boolean prüfe_ob_ziel_frei(int Anzahl){
 	}
 
 
-	public void einsteigen() { // mit einer 6 rausgewürfelt werden
+	public void einsteigen() { // (mit z.B. einer 6) eingewürfelt werden
 		this.feld.figur = null;
 		this.feld = this.start_feld;
 		this.feld.figur = this;

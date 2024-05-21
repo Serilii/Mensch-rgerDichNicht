@@ -55,7 +55,7 @@ public class Spielbrett_Panel extends JPanel {
         for (int i = 2; i<6; i++) {g2D.fillOval(80*i, 6*80, 60 , 60);}
 
         //grüne Felder
-        g2D.setPaint(Color.GREEN);
+        g2D.setPaint(new Color(24,143,0));
         g2D.fillOval(800, 80, 60 , 60);
         g2D.fillOval(880, 80, 60 , 60);
         g2D.fillOval(800, 160, 60 , 60);
@@ -64,7 +64,7 @@ public class Spielbrett_Panel extends JPanel {
         for (int i = 2; i<6; i++) {g2D.fillOval(480, 80*i, 60 , 60);}
 
         //blaue Felder
-        g2D.setPaint(Color.CYAN);
+        g2D.setPaint(new Color(8,96,200));
         g2D.fillOval(80, 800, 60 , 60);
         g2D.fillOval(80, 880, 60 , 60);
         g2D.fillOval(160, 800, 60 , 60);
@@ -73,7 +73,7 @@ public class Spielbrett_Panel extends JPanel {
         for (int i = 7; i<11; i++) {g2D.fillOval(480, 80*i, 60 , 60);}
 
         //rote Felder
-        g2D.setPaint(Color.RED);
+        g2D.setPaint(new Color(220,40,40));
         g2D.fillOval(800, 800, 60 , 60);
         g2D.fillOval(800, 880, 60 , 60);
         g2D.fillOval(880, 800, 60 , 60);

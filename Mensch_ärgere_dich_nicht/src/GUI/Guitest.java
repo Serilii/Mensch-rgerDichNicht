@@ -65,21 +65,31 @@ public class Guitest {
 
         Spielfeld spielfeld = new Spielfeld();
 
-        spielfeld.Blau.figur_1.einsteigen();
-        spielfeld.Blau.figur_1.alle_felder_ziehen(45);
-
-        System.out.println("" + spielfeld.Blau.startFeld.x_koordinate);
-
-        for (Farbe farbe : spielfeld.farbenarray) {
-            for (Figur figur : farbe.figurenarray){
-            JLabel x = new JLabel(new ImageIcon("C:/Users/Serilii/Downloads/blau3.png"));
-            x.setBounds(73 + 80 * figur.feld.x_koordinate, 35 + 80 * figur.feld.y_koordinate, 60 ,60 );
-            // x.setBackground(new Color(0,0,0,0));
-            layerPane.add(x, Integer.valueOf(5));
-            }
-            }
+        spielfeld.Blau.figur_1.einsteigen();  
+        spielfeld.Blau.figur_1.alle_felder_ziehen(50);  
+        spielfeld.Rot.figur_1.einsteigen();  
+        spielfeld.Rot.figur_1.alle_felder_ziehen(50);  
+        spielfeld.Gelb.figur_1.einsteigen();  
+        spielfeld.Gelb.figur_1.alle_felder_ziehen(50);  
+        spielfeld.Grün.figur_1.einsteigen();  
+        spielfeld.Grün.figur_1.alle_felder_ziehen(50);  
+        spielfeld.Blau.figur_2.einsteigen();  
+ 
+        spielfeld.Rot.figur_2.einsteigen();  
+        spielfeld.Rot.figur_2.alle_felder_ziehen(9);
+        spielfeld.Gelb.figur_2.einsteigen();  
+  
+        spielfeld.Grün.figur_2.einsteigen();  
         
-            System.out.println("hello3");
+        spielfeld.Rot.figur_3.einsteigen();
+        spielfeld.Rot.figur_3.alle_felder_ziehen(50);
+
+             for (Farbe farbe : spielfeld.farbenarray) {
+                for (Figur figur : farbe.figurenarray){
+               FigurPanel x = new FigurPanel(farbe.colour);
+                x.setBounds(76 + 80 * figur.feld.x_koordinate, 0 + 80 * figur.feld.y_koordinate, x.getHeight() ,x.getHeight() );
+                layerPane.add(x, Integer.valueOf(5));
+                }}
 
 }
 }

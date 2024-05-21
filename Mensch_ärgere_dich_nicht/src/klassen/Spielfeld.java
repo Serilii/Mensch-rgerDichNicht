@@ -1,5 +1,6 @@
 package klassen;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,6 +11,11 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
     public Farbe Gelb;
     public Farbe Rot;
     public Farbe Grün;
+
+    public Color BlueFilling = new Color(0,191,255);
+    public Color YellowFilling = new Color(255,191,0);
+    public Color RedFilling = new Color(212,96,101);   //ich liebe altrosa <3
+    public Color GreenFilling = new Color(55,215,20);
 
 
     public Feld[][] feldarray;
@@ -36,10 +42,10 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
         Feld Startfeld_unten = this.feldarray[5][11];
 
         //generiere jede Farbe , jede Farbe generiert automatisch 4 Figuren (ohne Startfeld bis jetzt)
-        Blau = new Farbe("Blau", this, 1,11, Startfeld_links);
-        Farbe Gelb = new Farbe("Gelb", this,10, 11 , Startfeld_oben);
-        Farbe Rot = new Farbe("Rot", this, 1, 2, Startfeld_recht);
-        Farbe Grün = new Farbe("Grün",this, 10, 2, Startfeld_unten);
+        Blau = new Farbe("Blau", this, 1,11, Startfeld_unten, BlueFilling);
+        Gelb = new Farbe("Gelb", this,1, 2 , Startfeld_links, YellowFilling);
+        Rot = new Farbe("Rot", this, 10, 11, Startfeld_recht, RedFilling);
+        Grün = new Farbe("Grün",this, 10, 2, Startfeld_oben, GreenFilling);
         
 
         this.farbenarray = new Farbe[]{Gelb, Grün, Rot, Blau};
@@ -166,7 +172,7 @@ public void verbinde_alle_felder(){ //ja trauriger weise war es einfacher alles 
             momentan = this.feldarray[1][7];
 
 
-            for (int i = 0; i < 40; i++ ) {
+            for (int i = 0; i < 42; i++ ) {
                 korrekturArray.add(momentan.nächstes);
                 momentan = momentan.nächstes;
             }
@@ -178,4 +184,6 @@ public void verbinde_alle_felder(){ //ja trauriger weise war es einfacher alles 
                 momentan = momentan.nächstes;
 
             }
+
+            this.feldarray[4][7].nächstes = this.feldarray[3][7]; 
 }}
