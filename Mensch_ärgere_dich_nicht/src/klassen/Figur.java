@@ -73,7 +73,7 @@ public boolean prüfe_ob_ziel_frei(int Anzahl){
 	}
 
 	public void alle_felder_ziehen(int Anzahl) { // Loop für Anzahl der "Felder" um die man einen "Schritt_macht"
-		if (prüfe_ob_ziel_frei(Anzahl)) {
+		if (this.feld != this.aus_feld && prüfe_ob_ziel_frei(Anzahl) ) {
 			this.feld.figur = null;		//lösen vom feld
 			for (int i = 0; i < Anzahl; i++ ) {
 				this.ein_feld_ziehen();

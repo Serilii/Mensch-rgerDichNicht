@@ -1,20 +1,30 @@
 package GUI;
 import java.awt.*;
 import javax.swing.*;
-
+import klassen.*;
 
 public class FigurPanel extends JPanel {
     
 Color fillingfarbe;
+Figur figur;
 
 public FigurPanel(){
     this.setSize(new Dimension(65,95));
     this.setOpaque(false);
 }
 
+//überladung mit einer farbe aus awt
 public FigurPanel(Color color){
     this.setSize(new Dimension(60,90));
     this.fillingfarbe = color;
+    this.setOpaque(false);
+}
+
+//überladung mit einer figureninstanz, zieht sich die farbe aus der figut selbst
+public FigurPanel(Figur figur){
+    this.setSize(new Dimension(60,90));
+    this.figur = figur;
+    this.fillingfarbe = figur.farbe.colour;
     this.setOpaque(false);
 }
 
@@ -49,7 +59,7 @@ public void paint(Graphics g){
     }
 
 public static void main(String[] args) {
-    FigurPanel hans = new FigurPanel(Color.red);
+    FigurPanel hans = new FigurPanel(Color.pink);
     JFrame fenster = new JFrame("Ich bin eine GUI");
     fenster.setSize(60,150);
     fenster.getContentPane().setBackground(Color.cyan);

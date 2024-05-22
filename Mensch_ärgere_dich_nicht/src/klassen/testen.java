@@ -15,10 +15,10 @@ public class testen extends JPanel {
 
 		Spielfeld Spielfeld = new Spielfeld();
 
-		Farbe Blau = new Farbe("Blau", Spielfeld, 1,11, Spielfeld.feldarray[1][7]);
-		Figur test = new Figur(Blau, 0, Spielfeld, 1 , 7 );
-		Figur gegner = new Figur(Blau, 0, Spielfeld, 4, 7 );
-		Figur gegner2 = new Figur(Blau, 0, Spielfeld, 5,  10);
+		// Farbe Blau = new Farbe("Blau", Spielfeld, 1,11, Spielfeld.feldarray[1][7]);
+		// Figur test = new Figur(Blau, 0, Spielfeld, 1 , 7 );
+		// Figur gegner = new Figur(Blau, 0, Spielfeld, 4, 7 );
+		// Figur gegner2 = new Figur(Blau, 0, Spielfeld, 5,  10);
 
 		Würfel würfel = new Würfel(6);
 
@@ -51,18 +51,18 @@ public class testen extends JPanel {
 
 		
 		
-		for (int i= 0; i<20; i++){
-			x = würfel.würfeln();
-			test.alle_felder_ziehen(x);
+		// for (int i= 0; i<20; i++){
+		// 	x = würfel.würfeln();
+		// 	test.alle_felder_ziehen(x);
 
-			System.out.print("\033[H\033[2J");  
-			System.out.flush();
+		// 	System.out.print("\033[H\033[2J");  
+		// 	System.out.flush();
 			
-			System.out.println("Du hast eine " + x + " gewürfelt.");
-			Spielfeld.print_Spielfeld();  
-			Thread.sleep(500);
+		// 	System.out.println("Du hast eine " + x + " gewürfelt.");
+		// 	Spielfeld.print_Spielfeld();  
+		// 	Thread.sleep(500);
 
-		}
+		// }
 		
 		Spielfeld.print_Spielfeld_koordinaten();
 

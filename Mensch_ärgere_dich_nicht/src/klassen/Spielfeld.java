@@ -165,7 +165,7 @@ public void verbinde_alle_felder(){ //ja trauriger weise war es einfacher alles 
             }
         
 
-            //ab hier korrektur weil ich das die felder falschrum verlinkt hab upsi :P
+            //ab hier korrektur-code weil ich das die felder rückwärts verlinkt hab upsi :P
 
 
             List<Feld> korrekturArray = new ArrayList<Feld>();

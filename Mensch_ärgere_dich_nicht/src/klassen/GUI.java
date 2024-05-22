@@ -2,6 +2,7 @@ package klassen;
 import java.awt.*;
 import javax.swing.*;
 
+import GUI.FigurPanel;
 import GUI.MyLayeredPane;
 import GUI.MyPanel;
 import GUI.Spielbrett_Panel;
@@ -10,12 +11,12 @@ import GUI.Spielbrett_Panel;
 //imma just play a bit with GUIS for now
 public class GUI {
 
-
-    public static void main (String args []) throws InterruptedException {
+ public static void main (String args []) throws InterruptedException {
         JFrame fenster = new JFrame("Ich bin eine GUI");
         fenster.setSize(1100,1100);
         fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fenster.getContentPane().setBackground(Color.PINK);
+        fenster.setResizable(false);
     
         //main panel (borderlayout)
         JPanel panel_border_main = new JPanel();
@@ -68,6 +69,41 @@ public class GUI {
         fenster.setVisible(true);
 
 
+        Spielfeld spielfeld = new Spielfeld();
+
+        spielfeld.Blau.figur_1.einsteigen();  
+        spielfeld.Blau.figur_1.alle_felder_ziehen(50);  
+        spielfeld.Rot.figur_1.einsteigen();  
+        spielfeld.Rot.figur_1.alle_felder_ziehen(50);  
+        spielfeld.Gelb.figur_1.einsteigen();  
+        spielfeld.Gelb.figur_1.alle_felder_ziehen(50);  
+        spielfeld.Grün.figur_1.einsteigen();  
+        spielfeld.Grün.figur_1.alle_felder_ziehen(50);  
+        spielfeld.Blau.figur_2.einsteigen();  
+ 
+        spielfeld.Rot.figur_2.einsteigen();  
+        // spielfeld.Rot.figur_2.alle_felder_ziehen(9);
+
+
+             for (Farbe farbe : spielfeld.farbenarray) {
+                for (Figur figur : farbe.figurenarray){
+               FigurPanel x = new FigurPanel(farbe.colour);
+                x.setBounds(76 + 80 * figur.feld.x_koordinate, 0 + 80 * figur.feld.y_koordinate, x.getHeight() ,x.getHeight() );
+                layerPane.add(x, Integer.valueOf(5));
+                }}
+
+                for (int i = 0; i < 10; i++ ){
+                    layerPane.repaint();
+                    layerPane.revalidate();
+                    spielfeld.Rot.figur_2.alle_felder_ziehen(2);
+                    for (Farbe farbe : spielfeld.farbenarray) {
+                        for (Figur figur : farbe.figurenarray){
+                       FigurPanel x = new FigurPanel(farbe.colour);
+                        x.setBounds(76 + 80 * figur.feld.x_koordinate, 0 + 80 * figur.feld.y_koordinate, x.getHeight() ,x.getHeight() );
+                        layerPane.add(x, Integer.valueOf(5));
+                        }}
         
+
+                }
 }
 }
