@@ -24,6 +24,7 @@ public FigurPanel(Color color){
 public FigurPanel(Figur figur){
     this.setSize(new Dimension(60,90));
     this.figur = figur;
+    this.figur.figurpanel = this;
     this.fillingfarbe = figur.farbe.colour;
     this.setOpaque(false);
 }

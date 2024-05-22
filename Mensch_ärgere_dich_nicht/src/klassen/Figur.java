@@ -1,5 +1,7 @@
 package klassen;
 
+import GUI.FigurPanel;
+
 public class Figur {
 	// public int x_koordinate; //wenn nötig
 	// public int y_koordinate; //wenn nötig
@@ -10,6 +12,7 @@ public class Figur {
 	public int gezogene_felder = 0;	//39 felder gezogen -> parken bei nächstes_parken;
 	public Feld start_feld; //erstes Feld falls die Figur mit einer 6 reingewürfelt wird , falls das Startfeld in die Figurenklasse kommt
 	public int nummer;
+	public FigurPanel figurpanel;
 
 	public Figur(Farbe farbe, int nummer, Spielfeld Spielfeld, int x_koordinate, int y_koordinate){
 		this.farbe = farbe;

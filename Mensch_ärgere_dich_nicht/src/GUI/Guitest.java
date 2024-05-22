@@ -28,22 +28,20 @@ public class Guitest {
     FigurPanel blau_3 = new FigurPanel(sf.Blau.figur_3);
     FigurPanel blau_4 = new FigurPanel(sf.Blau.figur_4);
 
-
-
     FigurPanel gruen_1 = new FigurPanel(sf.Grün.figur_1);
-    // FigurPanel = new FigurPanel();
-    // FigurPanel = new FigurPanel();
-    // FigurPanel = new FigurPanel();
+    FigurPanel gruen_2= new FigurPanel(sf.Grün.figur_2);
+    FigurPanel gruen_3= new FigurPanel(sf.Grün.figur_3);
+    FigurPanel gruen_4= new FigurPanel(sf.Grün.figur_4);
     
-    // FigurPanel = new FigurPanel();
-    // FigurPanel = new FigurPanel();
-    // FigurPanel = new FigurPanel();
-    // FigurPanel = new FigurPanel();
+    FigurPanel rot_1 = new FigurPanel(sf.Rot.figur_1);
+    FigurPanel rot_2 = new FigurPanel(sf.Rot.figur_2);
+    FigurPanel rot_3 = new FigurPanel(sf.Rot.figur_3);
+    FigurPanel rot_4 = new FigurPanel(sf.Rot.figur_4);
 
-    // FigurPanel = new FigurPanel();
-    // FigurPanel = new FigurPanel();
-    // FigurPanel = new FigurPanel();
-    // FigurPanel = new FigurPanel();
+    FigurPanel gelb_1 = new FigurPanel(sf.Gelb.figur_1);
+    FigurPanel gelb_2 = new FigurPanel(sf.Gelb.figur_2);
+    FigurPanel gelb_3 = new FigurPanel(sf.Gelb.figur_3);
+    FigurPanel gelb_4 = new FigurPanel(sf.Gelb.figur_4);
 
     public Guitest(){
         fenster = new JFrame("Ich bin eine GUI");
@@ -99,6 +97,9 @@ public class Guitest {
         layerPane.revalidate();
     }
 
+    public void bewege_figur_bild(Figur figur) {
+        figur.figurpanel.setBounds(76 + 80 * figur.feld.x_koordinate, 0 + 80 * figur.feld.y_koordinate, figur.figurpanel.getHeight() ,figur.figurpanel.getHeight() );  
+    }
 
     public void draw_field(){
            
@@ -134,31 +135,6 @@ public class Guitest {
     }
 
     public void redraw(){
-
-        // layerPane.removeAll();
-        
-        // panel_links.setLayout(layout_links);
-    
-        // panel_links.add(button_links_1);
-       
-        // panel_links.add(button_links_2);
-        // panel_links.add(button_links_3);
-        // panel_links.add(button_links_4);
-        // panel_oben.add(button_oben);
-
-        // panel_border_main.add(panel_mitte, BorderLayout.CENTER);
-        // panel_border_main.add(panel_links, BorderLayout.WEST);
-        // panel_border_main.add(panel_oben, BorderLayout.NORTH);
-    
-        // layerPane.add(panel_border_main, Integer.valueOf(0));
-
-
-        // for (Farbe farbe : spielfeld.farbenarray) {
-        //     for (Figur figur : farbe.figurenarray){
-        //    FigurPanel x = new FigurPanel(farbe.colour);
-        //     x.setBounds(76 + 80 * figur.feld.x_koordinate, 0 + 80 * figur.feld.y_koordinate, x.getHeight() ,x.getHeight() );
-        //     layerPane.add(x, Integer.valueOf(5));
-        //     }}
 
 
             
