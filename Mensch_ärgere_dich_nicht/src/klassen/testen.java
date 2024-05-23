@@ -12,17 +12,16 @@ public class testen extends JPanel {
 		String stest = scanner.nextLine();
 		System.out.println(stest);
 
+		Wuerfel würfel = new Wuerfel(6);
+		würfel.wuerfeln();
 
-		Spielfeld Spielfeld = new Spielfeld();
+		Spielfeld Spielfeld = new Spielfeld(würfel);
 
 		// Farbe Blau = new Farbe("Blau", Spielfeld, 1,11, Spielfeld.feldarray[1][7]);
 		// Figur test = new Figur(Blau, 0, Spielfeld, 1 , 7 );
 		// Figur gegner = new Figur(Blau, 0, Spielfeld, 4, 7 );
 		// Figur gegner2 = new Figur(Blau, 0, Spielfeld, 5,  10);
 
-		Würfel würfel = new Würfel(6);
-
-		int x = würfel.würfeln();
 		// test.alle_felder_ziehen(x);
 
 		// System.out.println("Du hast eine " + x + " gewürfelt.");

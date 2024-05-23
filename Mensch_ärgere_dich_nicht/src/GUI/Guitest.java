@@ -2,14 +2,18 @@ package GUI;
 import klassen.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Guitest {
+public class Guitest implements ActionListener {
     JFrame fenster;
     JPanel panel_border_main;
     JPanel panel_oben;
     JPanel panel_links;
     Spielbrett_Panel panel_mitte;
     //JPanel würfelPanel;
+
+    public void actionPerformed(ActionEvent e){};
 
     JButton button_links_1;
     JButton button_links_2;
@@ -47,16 +51,20 @@ public class Guitest {
     FigurPanel gelb_4; 
     FigurPanel[] array_FigurPanele_gelb ;
 
+    Spielfeld sf;
+
     //es fehlt noch die funktionalität der buttons, ein JLabel oben um zu zeigen wer dran ist, und vielleicht eine würfel animation
 
     //generiert das Fenster, zeichnet die Figuren rein vom Spielfeld die man übergibt
-    public Guitest(Spielfeld sf){
+    public Guitest(Spielfeld sf) {
         fenster = new JFrame("Ich bin eine GUI");
         fenster.setSize(1100,1100);
         fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fenster.getContentPane().setBackground(Color.PINK);
         fenster.setResizable(false);
     
+        this.sf = sf;
+
         panel_border_main = new JPanel();
         panel_border_main.setBounds(0,0,1100,1100);
         panel_border_main.setLayout(new BorderLayout());
@@ -128,20 +136,37 @@ public class Guitest {
 
     //nur zum bugfixen, kann später raus
     public void testbewegung(){
-        blau_1.figur.alle_felder_ziehen(2);
-        blau_1.setBounds(76 + 80 * blau_1.figur.feld.x_koordinate, 0 + 80 * blau_1.figur.feld.y_koordinate, blau_1.getHeight() ,blau_1.getHeight() );
-
-        gruen_1.figur.alle_felder_ziehen(1);
-        gruen_1.setBounds(76 + 80 * gruen_1.figur.feld.x_koordinate, 0 + 80 * gruen_1.figur.feld.y_koordinate, gruen_1.getHeight() ,gruen_1.getHeight() );
+        blau_1.figur.einsteigen();
+        blau_1.figur.alle_felder_ziehen(3);
+        blau_2.figur.einsteigen();
+        blau_2.figur.alle_felder_ziehen(2);
+        blau_3.figur.einsteigen();
+        blau_3.figur.alle_felder_ziehen(1);
+        blau_4.figur.einsteigen();
+        blau_4.figur.alle_felder_ziehen(0);
+        bewege_figur_bild(blau_1);
+        bewege_figur_bild(blau_2);
+        bewege_figur_bild(blau_3);
+        bewege_figur_bild(blau_4);
         layerPane.repaint();
         layerPane.revalidate();
     }
 
     //verschiebt das Panel der übergebenen Figur
-    public void bewege_figur_bild(Figur figur) {
-        figur.figurpanel.setBounds(76 + 80 * figur.feld.x_koordinate, 0 + 80 * figur.feld.y_koordinate, figur.figurpanel.getHeight() ,figur.figurpanel.getHeight() );  
+    public void bewege_figur_bild(FigurPanel bild) {
+        bild.setBounds(76 + 80 * bild.figur.feld.x_koordinate, 0 + 80 * bild.figur.feld.y_koordinate, bild.figur.figurpanel.getHeight() ,bild.figur.figurpanel.getHeight() );  
         layerPane.repaint();
         layerPane.revalidate();
+    }
+
+    public void highlight_panel(){
+        sf.Farbe_am_Zug.figur_1.figurpanel.aktuelle_Farbe = sf.Farbe_am_Zug.figur_1.figurpanel.fillingfarbe_highlight; 
+        redraw();
+    };
+
+    public void dehighlight_panel(){
+        sf.Farbe_am_Zug.figur_1.figurpanel.aktuelle_Farbe = sf.Farbe_am_Zug.figur_1.figurpanel.fillingfarbe; 
+        redraw();
     }
 
     //zeichnet 
@@ -159,8 +184,26 @@ public class Guitest {
         panel_border_main.add(panel_oben, BorderLayout.NORTH);
         layerPane.add(panel_border_main, Integer.valueOf(0));
 
-        blau_1.figur.einsteigen();
+        
         gruen_1.figur.einsteigen();
+
+        button_links_1.addActionListener(new ActionListener() {
+        @Override
+            public void actionPerformed(ActionEvent e){
+                System.out.println("Ich returne jetzt Figur Blau 1!");
+                sf.bewege_figur_1();    //bewegt die figur auf Spielfeld sf
+                bewege_figur_bild(blau_1);  //bewegt das Bild
+            }});
+
+        button_links_1.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+        highlight_panel();
+        }
+
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+        dehighlight_panel();
+        }
+});
 
         layerPane.repaint();
         layerPane.revalidate();
@@ -174,15 +217,20 @@ public class Guitest {
 
     public static void main (String args []) throws InterruptedException {
 
-        Spielfeld sf = new Spielfeld();
+        Wuerfel wuerfel = new Wuerfel();
+        wuerfel.wuerfeln();
+
+        Spielfeld sf = new Spielfeld(wuerfel);
         Guitest Gui = new Guitest(sf);
 
         Gui.zeichne_Gui();
-
-                for (int i = 0; i < 50; i++ ){
-                    Thread.sleep(100);
-                    Gui.testbewegung();
-                    }
+        Gui.testbewegung();
+        Gui.redraw();
+        // Gui.testbewegung();
+                // for (int i = 0; i < 50; i++ ){
+                //     Thread.sleep(100);
+                //     Gui.testbewegung();
+                //     }
                 }}
         
 

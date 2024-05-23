@@ -6,9 +6,9 @@ public class Logik {
 
 	
 	public static void main(String args[]) {
-		Würfel Würfel = new Würfel();
+		Wuerfel Würfel = new Wuerfel();
 		
-		Spielfeld Spielfeld = new Spielfeld();
+		Spielfeld Spielfeld = new Spielfeld(Würfel);
 		Spielfeld.print_Spielfeld();
 
 

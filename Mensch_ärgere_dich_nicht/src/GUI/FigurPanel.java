@@ -5,7 +5,9 @@ import klassen.*;
 
 public class FigurPanel extends JPanel {
     
-Color fillingfarbe;
+Color fillingfarbe;     //speichert die ursprüngliche Farbe
+Color fillingfarbe_highlight;   //speichert die gehighlightete Farbe
+Color aktuelle_Farbe;       //Zeiger der Farbe die im Moment benutzt wird
 Figur figur;
 
 public FigurPanel(){
@@ -25,7 +27,9 @@ public FigurPanel(Figur figur){
     this.setSize(new Dimension(60,90));
     this.figur = figur;
     this.figur.figurpanel = this;
-    this.fillingfarbe = figur.farbe.colour;
+    this.fillingfarbe = figur.farbe.colour; //speichert die Füllfarbe
+    this.aktuelle_Farbe = figur.farbe.colour;   //setzt aktuelle Farbe zur Füllfarbe
+    this.fillingfarbe_highlight = new Color(this.fillingfarbe.getRed(), this.fillingfarbe.getGreen(), this.fillingfarbe.getBlue(),  (int)(this.fillingfarbe.getAlpha() * 0.6) );
     this.setOpaque(false);
 }
 
@@ -44,12 +48,12 @@ public void paint(Graphics g){
 
     //inner part
     if (this.fillingfarbe != null){
-        g2D.setColor(fillingfarbe);}
+        g2D.setColor(aktuelle_Farbe);}
     g2D.fillOval(12, 2, 27, 26);
      int x[] = {26, 2, 48 };
      int y[] = {3, 68, 68 };
     g2D.fillPolygon(x,y,3);
-    g2D.fillArc(3, 58, 45, 18 , 180, 180);
+    g2D.fillArc(3, 59, 45, 18 , 180, 180);
 
     //highlights, cause we love some depth and glamour uwu
         g2D.setColor(Color.white);

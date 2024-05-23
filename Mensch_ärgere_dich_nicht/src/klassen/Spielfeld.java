@@ -11,18 +11,22 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
     public Farbe Gelb;
     public Farbe Rot;
     public Farbe Grün;
+    public Farbe Farbe_am_Zug;      //Pointer für Farbe die gerade dran ist
+
+    public Wuerfel wuerfel;
 
     public Color BlueFilling = new Color(0,191,255);
     public Color YellowFilling = new Color(255,191,0);
     public Color RedFilling = new Color(212,96,101);   //ich liebe altrosa <3
     public Color GreenFilling = new Color(55,215,20);
 
-
     public Feld[][] feldarray;
     public Farbe[] farbenarray;
 
-    public Spielfeld(){ //wenn das Spielfeld mit default generiert wird soll direkt das normale Spielfeld generiert werden
+    public Spielfeld(Wuerfel wuerfel){ //wenn das Spielfeld mit default generiert wird soll direkt das normale Spielfeld generiert werden
     
+        this.wuerfel = wuerfel;
+
         this.feldarray = new Feld[12][12];   // initialisiere ein 11x11 feldarray und jeder Eintrag ist ein Feld mit den richtigen koordinaten
         for (int i = 0; i<12; i++)  {
             for (int j = 0; j<12; j++) {
@@ -46,14 +50,16 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
         Gelb = new Farbe("Gelb", this,1, 2 , Startfeld_links, YellowFilling);
         Rot = new Farbe("Rot", this, 10, 11, Startfeld_recht, RedFilling);
         Grün = new Farbe("Grün",this, 10, 2, Startfeld_oben, GreenFilling);
-        
+        Farbe_am_Zug = Blau;
 
         this.farbenarray = new Farbe[]{Gelb, Grün, Rot, Blau};
         this.verbinde_alle_felder();
 
     } //Spielfeld Constructor ende
     
-    
+    public void bewege_figur_1(){
+        this.Farbe_am_Zug.figur_1.alle_felder_ziehen(this.wuerfel.aktuelle_Zahl);
+    }
 
     public void print_Spielfeld(){      //konsolenausgabe für ein erstelltes Spielfeld
         for (int i = 11; i>=1; i--)  {
