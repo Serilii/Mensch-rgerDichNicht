@@ -33,12 +33,7 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
             feldarray[i][j] = new Feld(i,j);    
             }
         }
-        //bestimme die Startfelder der 4 Spieler
-        // Feld Startfeld_links = this.feldarray[1][7];
-        // Feld Startfeld_oben = this.feldarray[7][11];
-        // Feld Startfeld_recht = this.feldarray[11][5];
-        // Feld Startfeld_unten = this.feldarray[5][1];
-
+        
         //bestimme die Startfelder der 4 Spieler
         Feld Startfeld_links = this.feldarray[1][5];
         Feld Startfeld_oben = this.feldarray[7][1];
@@ -57,8 +52,9 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
 
     } //Spielfeld Constructor ende
     
-    public void bewege_figur_1(){
-        this.Farbe_am_Zug.figur_1.alle_felder_ziehen(this.wuerfel.aktuelle_Zahl);
+    public void bewege_figur(Figur figur){
+        Figur x = this.Farbe_am_Zug.figurenarray[figur.nummer];
+        x.alle_felder_ziehen(this.wuerfel.aktuelle_Zahl);
     }
 
     public void print_Spielfeld(){      //konsolenausgabe für ein erstelltes Spielfeld

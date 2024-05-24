@@ -69,7 +69,10 @@ public class GUI {
         fenster.setVisible(true);
 
 
-        Spielfeld spielfeld = new Spielfeld();
+        Wuerfel wuerfel = new Wuerfel();
+        wuerfel.wuerfeln();
+
+        Spielfeld spielfeld = new Spielfeld(wuerfel);
 
         spielfeld.Blau.figur_1.einsteigen();  
         spielfeld.Blau.figur_1.alle_felder_ziehen(50);  

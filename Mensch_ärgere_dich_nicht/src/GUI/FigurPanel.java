@@ -29,7 +29,12 @@ public FigurPanel(Figur figur){
     this.figur.figurpanel = this;
     this.fillingfarbe = figur.farbe.colour; //speichert die Füllfarbe
     this.aktuelle_Farbe = figur.farbe.colour;   //setzt aktuelle Farbe zur Füllfarbe
-    this.fillingfarbe_highlight = new Color(this.fillingfarbe.getRed(), this.fillingfarbe.getGreen(), this.fillingfarbe.getBlue(),  (int)(this.fillingfarbe.getAlpha() * 0.6) );
+    this.fillingfarbe_highlight = new Color(
+        ((int)((this.fillingfarbe.getRed()+510)/3)), 
+        ((int)((this.fillingfarbe.getGreen()+510)/3)), 
+        ((int)((this.fillingfarbe.getBlue()+510)/3)),
+        ((int)((this.fillingfarbe.getAlpha() * 1)) )
+        );
     this.setOpaque(false);
 }
 

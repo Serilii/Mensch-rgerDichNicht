@@ -30,19 +30,7 @@ public class Figur {
 	// }
 
 public boolean prüfe_ob_ziel_frei(int Anzahl){
-	Feld check = this.feld;
-	int check_gezogene_felder = this.gezogene_felder;
-		for (int i = 0; i < Anzahl; i++) {
-				if (check_gezogene_felder < 39){
-				check = check.nächstes;
-				check_gezogene_felder += 1;
-				} else if (check_gezogene_felder < 43){
-					check= check.nächstes_parken;
-					check_gezogene_felder+=1;
-				} else if (check_gezogene_felder == 43) {
-					;
-				}
-		}
+		Feld check = Zielfeld_return(Anzahl);
 		if (check.figur != null  && check.figur.farbe == this.farbe) {	//wenn das Zielfeld mit einer Figur dieser Farbe besetzt ist: nix
 			return false;
 		}	else if (check.figur!= null && check.figur.farbe != this.farbe) { //wenn das Zielfeld mit einer Figur einer anderen Farbe besetzt ist: rauswerfen und hinlaufen
@@ -50,9 +38,27 @@ public boolean prüfe_ob_ziel_frei(int Anzahl){
 			return true;			// wenn das Feld leer ist( also ausschlussverfahren ) dann grünes Licht und lets go
 		}	else {
 			return true;
-		}
+		}}
 
-}
+	public Feld Zielfeld_return(int Anzahl){
+		if (this.feld != this.aus_feld) {
+		Feld check = this.feld;
+		int check_gezogene_felder = this.gezogene_felder;
+			for (int i = 0; i < Anzahl; i++) {
+					if (check_gezogene_felder < 39){
+					check = check.nächstes;
+					check_gezogene_felder += 1;
+					} else if (check_gezogene_felder < 43){
+						check= check.nächstes_parken;
+						check_gezogene_felder+=1;
+					} else if (check_gezogene_felder == 43) {
+						;
+					}}
+		return check;
+		} else {
+			return this.start_feld;
+		}
+	}
 
 
 	public void ein_feld_ziehen() { // weiterziehen um ein einzelnes Feld
@@ -90,9 +96,17 @@ public boolean prüfe_ob_ziel_frei(int Anzahl){
 
 
 	public void einsteigen() { // (mit z.B. einer 6) eingewürfelt werden
-		this.feld.figur = null;
-		this.feld = this.start_feld;
-		this.feld.figur = this;
+		if (this.feld == this.aus_feld ) {  //starte nur wenn die Figur draussen ist
+			if (this.start_feld.figur != null &&	this.start_feld.figur.farbe != this.farbe) { //wenn Feld von anderer Farbe besetzt ist rausfliegen
+				this.start_feld.figur.rausfliegen();
+			}
+			if (this.start_feld.figur != null &&	this.start_feld.figur.farbe == this.farbe) { //wenn Feld von dieser Farbe besetzt ist dann nichts
+				return;
+			}
+			this.feld.figur = null; //sonst weiter machen
+			this.feld = this.start_feld;
+			this.feld.figur = this;
+		}
 	}
 
 
