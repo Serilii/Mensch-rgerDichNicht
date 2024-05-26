@@ -2,6 +2,8 @@ package klassen;
 
 import java.awt.Color;
 
+import GUI.Guitest;
+
 public class Farbe {
     public Figur figur_1;
     public Figur figur_2;
@@ -11,10 +13,13 @@ public class Farbe {
     public Feld startFeld;
     public Color colour;
 
+    public Guitest GUI;
+
     public Figur[] figurenarray;
     // public Feld start_feld; //erstes Feld falls eine Figur mit einer 6 reingewürfelt wird 
 
     public Farbe(String farbe, Spielfeld Spielfeld, int x_obenlinks, int y_obenlinks, Feld startFeld, Color colour) {
+        this.GUI = GUI;
         this.startFeld = startFeld;
         this.farbe = farbe;
         this.figur_1 = new Figur(this, 0, Spielfeld,    x_obenlinks,        y_obenlinks );

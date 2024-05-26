@@ -1,6 +1,7 @@
 package klassen;
 
 import GUI.FigurPanel;
+import GUI.Guitest;
 
 public class Figur {
 	// public int x_koordinate; //wenn nötig
@@ -13,6 +14,8 @@ public class Figur {
 	public Feld start_feld; //erstes Feld falls die Figur mit einer 6 reingewürfelt wird , falls das Startfeld in die Figurenklasse kommt
 	public int nummer;
 	public FigurPanel figurpanel;
+
+	public Guitest GUI;
 
 	public Figur(Farbe farbe, int nummer, Spielfeld Spielfeld, int x_koordinate, int y_koordinate){
 		this.farbe = farbe;
@@ -88,6 +91,7 @@ public boolean prüfe_ob_ziel_frei(int Anzahl){
 				this.ein_feld_ziehen();
 				}
 				this.feld.figur = this; //das neue feld dieser figur zeigt zurück auf diese figur 
+
 		}
 		else {
 			; //pass
@@ -96,18 +100,20 @@ public boolean prüfe_ob_ziel_frei(int Anzahl){
 
 
 	public void einsteigen() { // (mit z.B. einer 6) eingewürfelt werden
-		if (this.feld == this.aus_feld ) {  //starte nur wenn die Figur draussen ist
-			if (this.start_feld.figur != null &&	this.start_feld.figur.farbe != this.farbe) { //wenn Feld von anderer Farbe besetzt ist rausfliegen
-				this.start_feld.figur.rausfliegen();
+		// if (this.GUI.sf.wuerfel.aktuelle_Zahl == 6){
+			if (this.feld == this.aus_feld ) {  //starte nur wenn die Figur draussen ist
+				if (this.start_feld.figur != null &&	this.start_feld.figur.farbe != this.farbe) { //wenn Feld von anderer Farbe besetzt ist rausfliegen
+					this.start_feld.figur.rausfliegen();
+				}
+				if (this.start_feld.figur != null &&	this.start_feld.figur.farbe == this.farbe) { //wenn Feld von dieser Farbe besetzt ist dann nichts
+					return;
+				}
+				this.feld.figur = null; //sonst weiter machen
+				this.feld = this.start_feld;
+				this.feld.figur = this;
 			}
-			if (this.start_feld.figur != null &&	this.start_feld.figur.farbe == this.farbe) { //wenn Feld von dieser Farbe besetzt ist dann nichts
-				return;
-			}
-			this.feld.figur = null; //sonst weiter machen
-			this.feld = this.start_feld;
-			this.feld.figur = this;
 		}
-	}
+	// }
 
 
 	public void rausfliegen() { // von einer Figur rausgeschmissen werden
@@ -115,5 +121,6 @@ public boolean prüfe_ob_ziel_frei(int Anzahl){
 		this.feld.figur = null;
 		this.feld = this.aus_feld;
 		this.feld.figur = this;
+		this.GUI.bewege_figur_bild(this);
 	}
 }

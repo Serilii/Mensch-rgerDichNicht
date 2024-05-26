@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import GUI.Guitest;
+
 public class Spielfeld {    //Klasse für das gesamte Spielfeld
 
     public Farbe Blau;
@@ -22,6 +24,10 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
 
     public Feld[][] feldarray;
     public Farbe[] farbenarray;
+
+    public Guitest GUI;      //pointer für die GUI
+
+    public int iterator = 0;
 
     public Spielfeld(Wuerfel wuerfel){ //wenn das Spielfeld mit default generiert wird soll direkt das normale Spielfeld generiert werden
     
@@ -42,7 +48,7 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
 
         //generiere jede Farbe , jede Farbe generiert automatisch 4 Figuren (ohne Startfeld bis jetzt)
         Blau = new Farbe("Blau", this, 1,11, Startfeld_unten, BlueFilling);
-        Gelb = new Farbe("Gelb", this,1, 2 , Startfeld_links, YellowFilling);
+        Gelb = new Farbe("Gelb", this,1, 2 , Startfeld_links, YellowFilling );
         Rot = new Farbe("Rot", this, 10, 11, Startfeld_recht, RedFilling);
         Grün = new Farbe("Grün",this, 10, 2, Startfeld_oben, GreenFilling);
         Farbe_am_Zug = Blau;
@@ -52,10 +58,27 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
 
     } //Spielfeld Constructor ende
     
-    public void bewege_figur(Figur figur){
-        Figur x = this.Farbe_am_Zug.figurenarray[figur.nummer];
-        x.alle_felder_ziehen(this.wuerfel.aktuelle_Zahl);
+
+
+    public boolean bewege_figur(int f){
+        if (f == 0) {return false;}
+        Figur x = this.Farbe_am_Zug.figurenarray[f];
+        if (x.Zielfeld_return(wuerfel.aktuelle_Zahl).figur != null && x.Zielfeld_return(wuerfel.aktuelle_Zahl).figur.farbe == x.farbe) {
+            return false;
+        }
+         if (x.feld == x.aus_feld && this.wuerfel.aktuelle_Zahl == 6 ){
+            if (x.start_feld.figur != null && x.start_feld.figur.farbe == x.farbe) {return false;}
+            x.einsteigen();
+            return true;
+        } else if (x.feld != x.aus_feld){
+            x.alle_felder_ziehen(this.wuerfel.aktuelle_Zahl);
+            return true;
+        } else {
+            return false;
+        }
     }
+
+
 
     public void print_Spielfeld(){      //konsolenausgabe für ein erstelltes Spielfeld
         for (int i = 11; i>=1; i--)  {
@@ -78,6 +101,13 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
 
             }
         }
+    }
+
+    public void spielerwechsel(){
+        if (this.iterator == 3) 
+            {this.iterator = 0;} else {this.iterator += 1;};
+            this.Farbe_am_Zug = this.farbenarray[iterator];
+        // this.wuerfel.aktuelle_Zahl = 0;
     }
 
     public void print_Spielfeld_koordinaten(){

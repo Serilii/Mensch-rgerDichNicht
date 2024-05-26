@@ -23,7 +23,9 @@ public class Guitest implements ActionListener {
     JButton button_links_4;
     JButton button_oben;
     //JButton Spieleranzeige;
+    
     JLabel Wuerfelanzeige;
+   public JLabel label_farbe_am_zug;
 
     BoxLayout layout_links;
 
@@ -54,7 +56,7 @@ public class Guitest implements ActionListener {
     FigurPanel gelb_4; 
     FigurPanel[] array_FigurPanele_gelb ;
 
-    Spielfeld sf;
+    public Spielfeld sf;
 
     //es fehlt noch die funktionalität der buttons, ein JLabel oben um zu zeigen wer dran ist, und vielleicht eine würfel animation
 
@@ -67,6 +69,8 @@ public class Guitest implements ActionListener {
         fenster.setResizable(false);
     
         this.sf = sf;
+        this.sf.GUI = this;
+        GUI_vererbungs_kette(this.sf);
 
         panel_border_main = new JPanel();
         panel_border_main.setBounds(0,0,1100,1100);
@@ -149,6 +153,9 @@ public class Guitest implements ActionListener {
         this.Wuerfelanzeige = new JLabel("Der Würfel zeigt eine :  " + this.sf.wuerfel.aktuelle_Zahl);
         panel_oben.add(Wuerfelanzeige);
 
+        this.label_farbe_am_zug = new JLabel("Die Farbe die dran ist :  " + this.sf.Farbe_am_Zug.farbe);
+        panel_oben.add(label_farbe_am_zug);
+
         besetze_alle_buttons();
         besetze_wuerfel_button();
 
@@ -157,21 +164,28 @@ public class Guitest implements ActionListener {
     }
 
     //funktion um einen einzelnen Button zu besetzen (siehe funktion für alle)
-    public void besetze_einzelnen_button(JButton button, Figur figur){
+    public void besetze_einzelnen_button(JButton button, int x){
+        
         button.addActionListener(new ActionListener() {
             @Override
-                public void actionPerformed(ActionEvent e){
-                    System.out.println("Ich returne jetzt Figur Blau 1!");
-                    sf.bewege_figur(figur);    //bewegt die figur auf Spielfeld sf
-                    bewege_figur_bild(figur.figurpanel);  //bewegt das Bild
-                    zielKreisPanel_2.setVisible(false); //aestethiccs
+                public void actionPerformed(ActionEvent e){    
+                        if (sf.bewege_figur(x)) {    //bewegt die figur auf Spielfeld sf( wenn legal dann true return)
+                            bewege_figur_bild(sf.Farbe_am_Zug.figurenarray[x]);  //bewegt das Bild
+                            zielKreisPanel_2.setVisible(false); //aestethiccs
+                            dehighlight_panel(x);
+                            redraw();
+                            sf.spielerwechsel();		//wenn die Figur gezogen ist, dann wehchselt der Spieler. hat von den Abfragen her ma meisten Sinn gemacht das hier zu plazieren
+                            label_farbe_am_zug.setText("Die Farbe die dran ist :  " + sf.Farbe_am_Zug.farbe);
+                        }
                 }});
         button.addMouseListener(new java.awt.event.MouseAdapter() {
         public void mouseEntered(java.awt.event.MouseEvent evt) {
-        highlight_panel(figur);
+        highlight_panel(x);
+        redraw();
         }
         public void mouseExited(java.awt.event.MouseEvent evt) {
-        dehighlight_panel(figur);
+        dehighlight_panel(x);
+        redraw();
         }});
     }
 
@@ -188,10 +202,10 @@ public class Guitest implements ActionListener {
     //funktion um alle Buttons hintereinander einzeln zu besetzen, muss im Moment am Anfang jedes Zuges in der Game Loop neu vergeben werden
     public void besetze_alle_buttons(){
         //signatur (zugehöriger button, figur auf die sich bezogen wird)
-        besetze_einzelnen_button(button_links_1, this.sf.Farbe_am_Zug.figurenarray[0]);
-        besetze_einzelnen_button(button_links_2, this.sf.Farbe_am_Zug.figurenarray[1]);
-        besetze_einzelnen_button(button_links_3, this.sf.Farbe_am_Zug.figurenarray[2]);
-        besetze_einzelnen_button(button_links_4, this.sf.Farbe_am_Zug.figurenarray[3]);
+        besetze_einzelnen_button(button_links_1, 0);
+        besetze_einzelnen_button(button_links_2, 1);
+        besetze_einzelnen_button(button_links_3, 2);
+        besetze_einzelnen_button(button_links_4, 3);
     }
 
 
@@ -199,25 +213,25 @@ public class Guitest implements ActionListener {
     public void testbewegung(){
         blau_1.figur.einsteigen();
         blau_1.figur.alle_felder_ziehen(3);
+        bewege_figur_bild(blau_1.figur);
         blau_2.figur.einsteigen();
         blau_2.figur.alle_felder_ziehen(2);
+        bewege_figur_bild(blau_2.figur);
         blau_3.figur.einsteigen();
         blau_3.figur.alle_felder_ziehen(1);
+        bewege_figur_bild(blau_3.figur);
         blau_4.figur.einsteigen();
         blau_4.figur.alle_felder_ziehen(0);
-        bewege_figur_bild(blau_1);
-        bewege_figur_bild(blau_2);
-        bewege_figur_bild(blau_3);
-        bewege_figur_bild(blau_4);
+        bewege_figur_bild(blau_4.figur);
 
         gruen_1.figur.einsteigen();
-        bewege_figur_bild(gruen_1);
+        bewege_figur_bild(gruen_1.figur);
 
         gruen_2.figur.einsteigen();
-        bewege_figur_bild(gruen_2);
+        bewege_figur_bild(gruen_2.figur);
 
         rot_1.figur.einsteigen();
-        bewege_figur_bild(rot_1);
+        bewege_figur_bild(rot_1.figur);
 
         layerPane.repaint();
         layerPane.revalidate();
@@ -225,16 +239,16 @@ public class Guitest implements ActionListener {
 
 
     //verschiebt das Panel der übergebenen Figur
-    public void bewege_figur_bild(FigurPanel bild) {
-        bild.setBounds(76 + 80 * bild.figur.feld.x_koordinate, 0 + 80 * bild.figur.feld.y_koordinate, bild.figur.figurpanel.getHeight() ,bild.figur.figurpanel.getHeight() );  
+    public void bewege_figur_bild(Figur figur) {
+        figur.figurpanel.setBounds(76 + 80 * figur.figurpanel.figur.feld.x_koordinate, 0 + 80 * figur.figurpanel.figur.feld.y_koordinate, figur.figurpanel.figur.figurpanel.getHeight() ,figur.figurpanel.figur.figurpanel.getHeight() );  
         layerPane.repaint();
         layerPane.revalidate();
     }
 
 
-    public void highlight_panel(Figur figur){ 
+    public void highlight_panel(int a){ 
         //higlighte die Figut
-        Figur y = sf.Farbe_am_Zug.figurenarray[figur.nummer];
+        Figur y = sf.Farbe_am_Zug.figurenarray[a];
         y.figurpanel.aktuelle_Farbe = y.figurpanel.fillingfarbe_highlight;
 
         //bemale das Zielkreispanel mit der aktuellen Farbe und setze blende es am Ziel ein
@@ -242,25 +256,33 @@ public class Guitest implements ActionListener {
         zielKreisPanel_2.fillingfarbe = sf.Farbe_am_Zug.colour;
         
 
-        Feld check = sf.Farbe_am_Zug.figurenarray[figur.nummer].Zielfeld_return(sf.wuerfel.aktuelle_Zahl);
+        Feld check = sf.Farbe_am_Zug.figurenarray[a].Zielfeld_return(sf.wuerfel.aktuelle_Zahl);
         this.zielKreisPanel_1.setBounds(panel_links.getWidth() + 80 * check.x_koordinate, panel_oben.getHeight() + 80 * check.y_koordinate, this.zielKreisPanel_1.getHeight() ,this.zielKreisPanel_1.getHeight() ); 
         zielKreisPanel_1.setVisible(true);
 
-        Feld dieses = sf.Farbe_am_Zug.figurenarray[figur.nummer].feld;
+        Feld dieses = sf.Farbe_am_Zug.figurenarray[a].feld;
         this.zielKreisPanel_2.setBounds(panel_links.getWidth() + 80 * dieses.x_koordinate, panel_oben.getHeight() + 80 * dieses.y_koordinate, this.zielKreisPanel_2.getHeight() ,this.zielKreisPanel_2.getHeight() ); 
         zielKreisPanel_2.setVisible(true);
 
         redraw();
     };
 
-    public void dehighlight_panel(Figur figur){
-        Figur y = sf.Farbe_am_Zug.figurenarray[figur.nummer];
+    public void dehighlight_panel(int a){
+        Figur y = sf.Farbe_am_Zug.figurenarray[a];
         y.figurpanel.aktuelle_Farbe = y.figurpanel.fillingfarbe; 
         zielKreisPanel_1.setVisible(false);
         zielKreisPanel_2.setVisible(false);
         redraw();
     }
 
+    private void GUI_vererbungs_kette(Spielfeld sf){
+        this.sf.GUI = this;                             //vererbe manuel einen Pointer auf diese GUI für alle Figuren in allen Farben
+        for (Farbe farbe: this.sf.farbenarray ) {       
+            for (Figur figur : farbe.figurenarray) {
+                figur.GUI = this;
+            }
+        }
+    }
 
     //zeichnet 
     public void zeichne_Gui(){     
@@ -293,14 +315,17 @@ public class Guitest implements ActionListener {
 
         Wuerfel wuerfel = new Wuerfel();
         wuerfel.wuerfeln();
+        wuerfel.aktuelle_Zahl = 6;
 
         Spielfeld sf = new Spielfeld(wuerfel);
         Guitest Gui = new Guitest(sf);
 
         Gui.zeichne_Gui();
         Gui.testbewegung();
-        sf.Farbe_am_Zug = sf.Grün;
-        Gui.besetze_alle_buttons();
+
+        // sf.spielerwechsel();
+        // sf.Farbe_am_Zug = sf.Grün;
+        sf.iterator = 3;
         // sf.Farbe_am_Zug = sf.Rot;
         // Gui.besetze_alle_buttons();
         Gui.redraw();
