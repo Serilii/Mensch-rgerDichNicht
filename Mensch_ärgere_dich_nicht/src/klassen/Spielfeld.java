@@ -51,7 +51,7 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
         Gelb = new Farbe("Gelb", this,1, 2 , Startfeld_links, YellowFilling );
         Rot = new Farbe("Rot", this, 10, 11, Startfeld_recht, RedFilling);
         Grün = new Farbe("Grün",this, 10, 2, Startfeld_oben, GreenFilling);
-        Farbe_am_Zug = Blau;
+        Farbe_am_Zug = Gelb;
 
         this.farbenarray = new Farbe[]{Gelb, Grün, Rot, Blau};
         this.verbinde_alle_felder();
@@ -61,7 +61,7 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
 
 
     public boolean bewege_figur(int f){
-        if (f == 0) {return false;}
+        if (wuerfel.aktuelle_Zahl == 0) {return false;}
         Figur x = this.Farbe_am_Zug.figurenarray[f];
         if (x.Zielfeld_return(wuerfel.aktuelle_Zahl).figur != null && x.Zielfeld_return(wuerfel.aktuelle_Zahl).figur.farbe == x.farbe) {
             return false;

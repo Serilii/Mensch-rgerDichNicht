@@ -325,7 +325,7 @@ public class Guitest implements ActionListener {
 
         // sf.spielerwechsel();
         // sf.Farbe_am_Zug = sf.Grün;
-        sf.iterator = 3;
+        // sf.iterator = 3;
         // sf.Farbe_am_Zug = sf.Rot;
         // Gui.besetze_alle_buttons();
         Gui.redraw();
