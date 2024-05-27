@@ -23,6 +23,7 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
 
     public Feld[][] feldarray;
     public Farbe[] farbenarray;
+    public Feld[] wuerfel_feld_array;
 
     public Guitest GUI;      //pointer für die GUI
 
@@ -45,6 +46,11 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
         Feld Startfeld_recht = this.feldarray[11][7];
         Feld Startfeld_unten = this.feldarray[5][11];
 
+        Feld wuerfel_feld_gelb = this.feldarray[3][3];
+        Feld wuerfel_feld_gruen = this.feldarray[9][3];
+        Feld wuerfel_feld_rot = this.feldarray[9][9];
+        Feld wuerfel_feld_blau = this.feldarray[3][9];
+
         //generiere jede Farbe , jede Farbe generiert automatisch 4 Figuren (ohne Startfeld bis jetzt)
         Blau = new Farbe("Blau", this, 1,11, Startfeld_unten, BlueFilling);
         Gelb = new Farbe("Gelb", this,1, 2 , Startfeld_links, YellowFilling );
@@ -52,7 +58,9 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
         Grün = new Farbe("Grün",this, 10, 2, Startfeld_oben, GreenFilling);
         Farbe_am_Zug = Gelb;
 
+
         this.farbenarray = new Farbe[]{Gelb, Grün, Rot, Blau};
+        this.wuerfel_feld_array = new Feld[]{wuerfel_feld_gelb, wuerfel_feld_gruen,wuerfel_feld_rot, wuerfel_feld_blau};
         this.verbinde_alle_felder();
 
     } //Spielfeld Constructor ende
@@ -104,7 +112,7 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
 
     public void runde_beenden(){
         if (pruefe_ob_gewonnen()) {
-            this.GUI.label_farbe_am_zug.setText("Spieler " + this.Farbe_am_Zug.farbe + " hat gewonnen!");
+            // this.GUI.label_farbe_am_zug.setText("Spieler " + this.Farbe_am_Zug.farbe + " hat gewonnen!");
         } else {
             if (this.iterator == 3) {this.iterator = 0;} else {this.iterator += 1;}; //iterator steigt um 1 und ändert den Spieler der dran ist
             this.Farbe_am_Zug = this.farbenarray[iterator];
@@ -113,8 +121,8 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
             this.wuerfel.aktuelle_Zahl = 0;
             this.GUI.wuerfel_zaehler = 0;
 
-            this.GUI.Wuerfelanzeige.setText("Spieler muss Würfeln! ");
-            this.GUI.label_farbe_am_zug.setText(this.Farbe_am_Zug.farbe + " ist dran!");        // this.wuerfel.aktuelle_Zahl = 0;
+            // this.GUI.Wuerfelanzeige.setText("Spieler muss Würfeln! ");
+            // this.GUI.label_farbe_am_zug.setText(this.Farbe_am_Zug.farbe + " ist dran!");        // this.wuerfel.aktuelle_Zahl = 0;
         
         
         } }

@@ -13,7 +13,7 @@ public class Guitest implements ActionListener {
     Spielbrett_Panel panel_mitte;
     ZielKreisPanel zielKreisPanel_1;
     ZielKreisPanel zielKreisPanel_2;
-    //JPanel würfelPanel;
+    WuerfelPanel wuerfelPanel;
 
     public void actionPerformed(ActionEvent e){};
 
@@ -24,8 +24,8 @@ public class Guitest implements ActionListener {
     JButton button_oben;
     //JButton Spieleranzeige;
     
-    public JLabel Wuerfelanzeige;
-    public JLabel label_farbe_am_zug;
+    // public JLabel Wuerfelanzeige;
+    // public JLabel label_farbe_am_zug;
     public JLabel wuerfel_versuche;
     public int wuerfel_zaehler = 0;
 
@@ -152,13 +152,13 @@ public class Guitest implements ActionListener {
         zielKreisPanel_2.setVisible(false);
         zielKreisPanel_2.fillingfarbe = sf.Farbe_am_Zug.colour;
         
-        this.Wuerfelanzeige = new JLabel("Der Würfel zeigt eine :  " + this.sf.wuerfel.aktuelle_Zahl);
-
-
-        this.label_farbe_am_zug = new JLabel(this.sf.Farbe_am_Zug.farbe + " ist dran!");
-
-
+        // this.Wuerfelanzeige = new JLabel("Der Würfel zeigt eine :  " + this.sf.wuerfel.aktuelle_Zahl);
+        // this.label_farbe_am_zug = new JLabel(this.sf.Farbe_am_Zug.farbe + " ist dran!");
         this.wuerfel_versuche = new JLabel("Versuche : " + this.sf.wuerfel.versuche);
+
+        this.wuerfelPanel = new WuerfelPanel(sf);
+        layerPane.add(wuerfelPanel, Integer.valueOf(3));
+        sf.GUI.wuerfelPanel.setVisible(false);
 
         besetze_alle_figuren_buttons();
         besetze_wuerfel_button();
@@ -167,6 +167,15 @@ public class Guitest implements ActionListener {
         fenster.setVisible(true);
 
         this.zeichne_Gui();
+    }
+
+    public void plaziere_wuerfel(WuerfelPanel bild){
+        bild.fillingfarbe = sf.Farbe_am_Zug.colour;
+        int x = this.sf.wuerfel_feld_array[sf.iterator].x_koordinate * 80 + panel_links.getWidth();
+        int y = this.sf.wuerfel_feld_array[sf.iterator].y_koordinate * 80 + panel_oben.getHeight();
+        bild.setBounds(x, y,bild. getWidth(), bild.getHeight());
+        sf.GUI.wuerfelPanel.setVisible(true);
+        redraw();
     }
 
     //funktion um einen einzelnen Button zu besetzen (siehe funktion für alle)
@@ -181,7 +190,7 @@ public class Guitest implements ActionListener {
                             dehighlight_panel(x);
                             redraw();
                             sf.runde_beenden();		//wenn die Figur gezogen ist, dann wehchselt der Spieler. hat von den Abfragen her ma meisten Sinn gemacht das hier zu plazieren
-                            label_farbe_am_zug.setText(sf.Farbe_am_Zug.farbe + " ist dran!");
+                            // label_farbe_am_zug.setText(sf.Farbe_am_Zug.farbe + " ist dran!");
 
                             
                             button_oben.setText("Würfeln!");
@@ -209,6 +218,7 @@ public class Guitest implements ActionListener {
                             return; }}
 
                     if ( wuerfel_zaehler == 3) {
+                        sf.GUI.wuerfelPanel.setVisible(false);
                         wuerfel_zaehler = 0;
                         sf.runde_beenden();
 
@@ -217,7 +227,8 @@ public class Guitest implements ActionListener {
                         return;}
 
                     sf.wuerfel.wuerfeln();
-                    Wuerfelanzeige.setText("Der Würfel zeigt eine :  " + sf.wuerfel.aktuelle_Zahl);
+                    sf.GUI.plaziere_wuerfel(wuerfelPanel);
+                    // Wuerfelanzeige.setText("Der Würfel zeigt eine :  " + sf.wuerfel.aktuelle_Zahl);
                     wuerfel_versuche.setText("Versuche : " + sf.wuerfel.versuche);
                     wuerfel_zaehler += 1;
 
@@ -323,16 +334,15 @@ public class Guitest implements ActionListener {
         panel_links.add(button_links_4);
 
 
-        panel_oben.add(label_farbe_am_zug);
+        // panel_oben.add(label_farbe_am_zug);
         panel_oben.add(button_oben);
-        panel_oben.add(Wuerfelanzeige);
+        // panel_oben.add(Wuerfelanzeige);
         panel_oben.add(wuerfel_versuche);
 
         panel_border_main.add(panel_mitte, BorderLayout.CENTER);
         panel_border_main.add(panel_links, BorderLayout.WEST);
         panel_border_main.add(panel_oben, BorderLayout.NORTH);
         layerPane.add(panel_border_main, Integer.valueOf(0));
-
         
         layerPane.repaint();
         layerPane.revalidate();
