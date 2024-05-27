@@ -2,7 +2,6 @@ package klassen;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import GUI.Guitest;

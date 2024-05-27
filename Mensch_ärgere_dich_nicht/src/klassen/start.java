@@ -1,20 +1,19 @@
 package klassen;
-import java.util.Scanner;
-import java.awt.*;
-import javax.swing.*;
 import GUI.*;
 
 
 
-public class main {
+public class start {
 
-	
+	public Spielfeld sf;
+
 	public static void main(String args[]) {
 		Wuerfel wuerfel = new Wuerfel();
-		
 		Spielfeld sf = new Spielfeld(wuerfel);
 		Guitest Gui = new Guitest(sf);
-	
+
+		System.out.println(Gui.sf.Farbe_am_Zug.farbe + " hat gewonnen!");
+		System.out.println("Danke fürs spielen! Bitte alles schließen.");
 	}
 	
 }

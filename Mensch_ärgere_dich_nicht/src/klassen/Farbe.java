@@ -19,7 +19,6 @@ public class Farbe {
     // public Feld start_feld; //erstes Feld falls eine Figur mit einer 6 reingewürfelt wird 
 
     public Farbe(String farbe, Spielfeld Spielfeld, int x_obenlinks, int y_obenlinks, Feld startFeld, Color colour) {
-        this.GUI = GUI;
         this.startFeld = startFeld;
         this.farbe = farbe;
         this.figur_1 = new Figur(this, 0, Spielfeld,    x_obenlinks,        y_obenlinks );
