@@ -24,8 +24,10 @@ public class Guitest implements ActionListener {
     JButton button_oben;
     //JButton Spieleranzeige;
     
-    JLabel Wuerfelanzeige;
-   public JLabel label_farbe_am_zug;
+    public JLabel Wuerfelanzeige;
+    public JLabel label_farbe_am_zug;
+    public JLabel wuerfel_versuche;
+    public int wuerfel_zaehler = 0;
 
     BoxLayout layout_links;
 
@@ -151,16 +153,20 @@ public class Guitest implements ActionListener {
         zielKreisPanel_2.fillingfarbe = sf.Farbe_am_Zug.colour;
         
         this.Wuerfelanzeige = new JLabel("Der Würfel zeigt eine :  " + this.sf.wuerfel.aktuelle_Zahl);
-        panel_oben.add(Wuerfelanzeige);
 
-        this.label_farbe_am_zug = new JLabel("Die Farbe die dran ist :  " + this.sf.Farbe_am_Zug.farbe);
-        panel_oben.add(label_farbe_am_zug);
 
-        besetze_alle_buttons();
+        this.label_farbe_am_zug = new JLabel(this.sf.Farbe_am_Zug.farbe + " ist dran!");
+
+
+        this.wuerfel_versuche = new JLabel("Versuche : " + this.sf.wuerfel.versuche);
+
+        besetze_alle_figuren_buttons();
         besetze_wuerfel_button();
 
         fenster.add(layerPane);
         fenster.setVisible(true);
+
+        this.zeichne_Gui();
     }
 
     //funktion um einen einzelnen Button zu besetzen (siehe funktion für alle)
@@ -169,13 +175,17 @@ public class Guitest implements ActionListener {
         button.addActionListener(new ActionListener() {
             @Override
                 public void actionPerformed(ActionEvent e){    
-                        if (sf.bewege_figur(x)) {    //bewegt die figur auf Spielfeld sf( wenn legal dann true return)
+                        if (sf.bewege_figur(x)) {    //bewegt die figur auf Spielfeld (wenn legal: bewege figurr, true return und weiter im code )
                             bewege_figur_bild(sf.Farbe_am_Zug.figurenarray[x]);  //bewegt das Bild
                             zielKreisPanel_2.setVisible(false); //aestethiccs
                             dehighlight_panel(x);
                             redraw();
-                            sf.spielerwechsel();		//wenn die Figur gezogen ist, dann wehchselt der Spieler. hat von den Abfragen her ma meisten Sinn gemacht das hier zu plazieren
-                            label_farbe_am_zug.setText("Die Farbe die dran ist :  " + sf.Farbe_am_Zug.farbe);
+                            sf.runde_beenden();		//wenn die Figur gezogen ist, dann wehchselt der Spieler. hat von den Abfragen her ma meisten Sinn gemacht das hier zu plazieren
+                            label_farbe_am_zug.setText(sf.Farbe_am_Zug.farbe + " ist dran!");
+
+                            
+                            button_oben.setText("Würfeln!");
+                            wuerfel_versuche.setText("Versuche : " + sf.wuerfel.versuche);
                         }
                 }});
         button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -193,14 +203,34 @@ public class Guitest implements ActionListener {
         button_oben.addActionListener(new ActionListener() {
             @Override
                 public void actionPerformed(ActionEvent e){
+
+                    for (Figur figuren : sf.Farbe_am_Zug.figurenarray) {
+                        if (wuerfel_zaehler > 0 && figuren.feld != figuren.aus_feld) {         //wenn eine der Figuren ungeparkt ist, eine draussen = true
+                            return; }}
+
+                    if ( wuerfel_zaehler == 3) {
+                        wuerfel_zaehler = 0;
+                        sf.runde_beenden();
+
+                        button_oben.setText("Würfeln!");
+                        wuerfel_versuche.setText("Versuche : " + sf.wuerfel.versuche);
+                        return;}
+
                     sf.wuerfel.wuerfeln();
                     Wuerfelanzeige.setText("Der Würfel zeigt eine :  " + sf.wuerfel.aktuelle_Zahl);
+                    wuerfel_versuche.setText("Versuche : " + sf.wuerfel.versuche);
+                    wuerfel_zaehler += 1;
+
+                    if (wuerfel_zaehler == 3) {
+                        button_oben.setText(" Weitergeben ");
+                        wuerfel_versuche.setText("Alle Versuche aufgebraucht...");
+                    }
                 }
                 });
     }
 
     //funktion um alle Buttons hintereinander einzeln zu besetzen, muss im Moment am Anfang jedes Zuges in der Game Loop neu vergeben werden
-    public void besetze_alle_buttons(){
+    public void besetze_alle_figuren_buttons(){
         //signatur (zugehöriger button, figur auf die sich bezogen wird)
         besetze_einzelnen_button(button_links_1, 0);
         besetze_einzelnen_button(button_links_2, 1);
@@ -291,7 +321,12 @@ public class Guitest implements ActionListener {
         panel_links.add(button_links_2);
         panel_links.add(button_links_3);
         panel_links.add(button_links_4);
+
+
+        panel_oben.add(label_farbe_am_zug);
         panel_oben.add(button_oben);
+        panel_oben.add(Wuerfelanzeige);
+        panel_oben.add(wuerfel_versuche);
 
         panel_border_main.add(panel_mitte, BorderLayout.CENTER);
         panel_border_main.add(panel_links, BorderLayout.WEST);
@@ -299,8 +334,6 @@ public class Guitest implements ActionListener {
         layerPane.add(panel_border_main, Integer.valueOf(0));
 
         
-        gruen_1.figur.einsteigen();
-
         layerPane.repaint();
         layerPane.revalidate();
     }
@@ -320,7 +353,6 @@ public class Guitest implements ActionListener {
         Spielfeld sf = new Spielfeld(wuerfel);
         Guitest Gui = new Guitest(sf);
 
-        Gui.zeichne_Gui();
         Gui.testbewegung();
 
         // sf.spielerwechsel();

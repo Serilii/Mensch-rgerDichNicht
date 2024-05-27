@@ -103,11 +103,43 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
         }
     }
 
-    public void spielerwechsel(){
-        if (this.iterator == 3) 
-            {this.iterator = 0;} else {this.iterator += 1;};
+    public void runde_beenden(){
+        if (pruefe_ob_gewonnen()) {
+            this.GUI.label_farbe_am_zug.setText("Spieler " + this.Farbe_am_Zug.farbe + " hat gewonnen!");
+        } else {
+            if (this.iterator == 3) {this.iterator = 0;} else {this.iterator += 1;}; //iterator steigt um 1 und ändert den Spieler der dran ist
             this.Farbe_am_Zug = this.farbenarray[iterator];
-        // this.wuerfel.aktuelle_Zahl = 0;
+            runde_beginnen();
+
+            this.wuerfel.aktuelle_Zahl = 0;
+            this.GUI.wuerfel_zaehler = 0;
+
+            this.GUI.Wuerfelanzeige.setText("Spieler muss Würfeln! ");
+            this.GUI.label_farbe_am_zug.setText(this.Farbe_am_Zug.farbe + " ist dran!");        // this.wuerfel.aktuelle_Zahl = 0;
+        
+        
+        } }
+
+    public boolean pruefe_ob_gewonnen() {
+        for (Figur figuren : this.Farbe_am_Zug.figurenarray) {
+            if (figuren.geparkt == false) { //wenn auch nur eine der Figuren false geparkt ist : return false
+                return false; } //wenn keine Figur ungeparkt ist : return true
+            }
+        return true;    
+        }
+
+    public void runde_beginnen() {
+        boolean eine_draussen = false;
+        for (Figur figuren : this.Farbe_am_Zug.figurenarray) {
+            if (figuren.feld != figuren.aus_feld) {         //wenn eine der Figuren ungeparkt ist, eine draussen = true
+                eine_draussen = true;}
+                
+        if (eine_draussen == false)
+            {this.wuerfel.versuche = 3;}
+        else {this.wuerfel.versuche = 1;}
+        }   //bis hier festgelegt ob man normal 1 mal oder 3 mal würfeln darf wenn alle figuren drin sind.
+
+
     }
 
     public void print_Spielfeld_koordinaten(){
