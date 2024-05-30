@@ -3,7 +3,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import klassen.*;
-import GUI.*;
+// import GUI.*;
 
 public class WuerfelPanel extends JPanel {
     

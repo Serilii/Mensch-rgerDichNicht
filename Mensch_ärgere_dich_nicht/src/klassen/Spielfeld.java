@@ -70,7 +70,10 @@ public class Spielfeld {    //Klasse für das gesamte Spielfeld
     public boolean bewege_figur(int f){
         if (wuerfel.aktuelle_Zahl == 0) {return false;}
         Figur x = this.Farbe_am_Zug.figurenarray[f];
-        if (x.Zielfeld_return(wuerfel.aktuelle_Zahl).figur != null && x.Zielfeld_return(wuerfel.aktuelle_Zahl).figur.farbe == x.farbe) {
+        if(!(x.prüfe_ob_ziel_frei(wuerfel.aktuelle_Zahl))) {    //wenn die figur über das letzte parken feld hinaus will dann nichts machen
+            return false;
+        }
+        if (x.Zielfeld_return(wuerfel.aktuelle_Zahl).figur != null && x.Zielfeld_return(wuerfel.aktuelle_Zahl).figur.farbe == x.farbe) { //wenn auf dem zielfeld Figur der gleichen farbe steht dann nichts machen
             return false;
         }
          if (x.feld == x.aus_feld && this.wuerfel.aktuelle_Zahl == 6 ){

@@ -15,6 +15,8 @@ public class Figur {
 	public int nummer;
 	public FigurPanel figurpanel;
 
+	private int check_gezogene_felder;
+
 	public Guitest GUI;
 
 	public Figur(Farbe farbe, int nummer, Spielfeld Spielfeld, int x_koordinate, int y_koordinate){
@@ -39,6 +41,8 @@ public boolean prüfe_ob_ziel_frei(int Anzahl){
 		}	else if (check.figur!= null && check.figur.farbe != this.farbe) { //wenn das Zielfeld mit einer Figur einer anderen Farbe besetzt ist: rauswerfen und hinlaufen
 			check.figur.rausfliegen();
 			return true;			// wenn das Feld leer ist( also ausschlussverfahren ) dann grünes Licht und lets go
+		} 	else if(check_gezogene_felder >= 43) { // wenn man über das letzte parkenFeld drüber ziehen würde, dann nicht	
+			return false;
 		}	else {
 			return true;
 		}}
@@ -46,7 +50,7 @@ public boolean prüfe_ob_ziel_frei(int Anzahl){
 	public Feld Zielfeld_return(int Anzahl){
 		if (this.feld != this.aus_feld) {
 		Feld check = this.feld;
-		int check_gezogene_felder = this.gezogene_felder;
+		check_gezogene_felder = this.gezogene_felder;
 			for (int i = 0; i < Anzahl; i++) {
 					if (check_gezogene_felder < 39){
 					check = check.nächstes;
@@ -54,8 +58,8 @@ public boolean prüfe_ob_ziel_frei(int Anzahl){
 					} else if (check_gezogene_felder < 43){
 						check= check.nächstes_parken;
 						check_gezogene_felder+=1;
-					} else if (check_gezogene_felder == 43) {
-						;
+					} else if (check_gezogene_felder >= 44) {
+						check_gezogene_felder += 1;
 					}}
 		return check;
 		} else {

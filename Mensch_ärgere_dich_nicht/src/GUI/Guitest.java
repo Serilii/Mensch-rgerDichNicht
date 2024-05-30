@@ -214,7 +214,7 @@ public class Guitest implements ActionListener {
                 public void actionPerformed(ActionEvent e){
 
                     for (Figur figuren : sf.Farbe_am_Zug.figurenarray) {
-                        if (wuerfel_zaehler > 0 && figuren.feld != figuren.aus_feld) {         //wenn eine der Figuren ungeparkt ist, eine draussen = true
+                        if (wuerfel_zaehler > 0 && figuren.feld != figuren.aus_feld && figuren.geparkt != true && figuren.prüfe_ob_ziel_frei(sf.wuerfel.aktuelle_Zahl) ) {         //wenn eine der Figuren drinne und ungeparkt ist (wenn sie sich bewegen kann), eine draussen = true
                             return; }}
 
                     if ( wuerfel_zaehler == 3) {
@@ -232,10 +232,16 @@ public class Guitest implements ActionListener {
                     wuerfel_versuche.setText("Versuche : " + sf.wuerfel.versuche);
                     wuerfel_zaehler += 1;
 
+                    // abfangen vom fall: keine Figur kann sich bewegen, dann geht das game state als hätte man schon 3 mal gewürfelt damit man nicht so oft auf den würfeln knopf drücken muss 
+                    for (Figur figuren : sf.Farbe_am_Zug.figurenarray) {    
+                        if ( figuren.feld != figuren.aus_feld && figuren.geparkt != true && figuren.prüfe_ob_ziel_frei(sf.wuerfel.aktuelle_Zahl) == false ) {         //wenn eine der Figuren drinne und ungeparkt ist (wenn sie sich bewegen kann), eine draussen = true
+                            wuerfel_zaehler = 3; }}
+
                     if (wuerfel_zaehler == 3) {
                         button_oben.setText(" Weitergeben ");
                         wuerfel_versuche.setText("Alle Versuche aufgebraucht...");
                     }
+                    
                 }
                 });
     }
@@ -253,7 +259,7 @@ public class Guitest implements ActionListener {
     //nur zum bugfixen, kann später raus
     public void testbewegung(){
         blau_1.figur.einsteigen();
-        blau_1.figur.alle_felder_ziehen(3);
+        blau_1.figur.alle_felder_ziehen(39);
         bewege_figur_bild(blau_1.figur);
         blau_2.figur.einsteigen();
         blau_2.figur.alle_felder_ziehen(2);
@@ -264,14 +270,22 @@ public class Guitest implements ActionListener {
         blau_4.figur.einsteigen();
         blau_4.figur.alle_felder_ziehen(0);
         bewege_figur_bild(blau_4.figur);
+        
+
 
         gruen_1.figur.einsteigen();
+        bewege_figur_bild(gruen_1.figur);
+        gruen_1.figur.alle_felder_ziehen(39);
         bewege_figur_bild(gruen_1.figur);
 
         gruen_2.figur.einsteigen();
         bewege_figur_bild(gruen_2.figur);
+        gruen_2.figur.alle_felder_ziehen(39);
+        bewege_figur_bild(gruen_2.figur);
 
         rot_1.figur.einsteigen();
+        bewege_figur_bild(rot_1.figur);
+        rot_1.figur.alle_felder_ziehen(39);
         bewege_figur_bild(rot_1.figur);
 
         layerPane.repaint();
@@ -288,7 +302,7 @@ public class Guitest implements ActionListener {
 
 
     public void highlight_panel(int a){ 
-        //higlighte die Figut
+        //higlighte die Figur
         Figur y = sf.Farbe_am_Zug.figurenarray[a];
         y.figurpanel.aktuelle_Farbe = y.figurpanel.fillingfarbe_highlight;
 
