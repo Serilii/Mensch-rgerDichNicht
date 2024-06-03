@@ -246,6 +246,7 @@ public class Guitest implements ActionListener {
                 });
     }
 
+
     //funktion um alle Buttons hintereinander einzeln zu besetzen, muss im Moment am Anfang jedes Zuges in der Game Loop neu vergeben werden
     public void besetze_alle_figuren_buttons(){
         //signatur (zugehöriger button, figur auf die sich bezogen wird)
@@ -259,34 +260,55 @@ public class Guitest implements ActionListener {
     //nur zum bugfixen, kann später raus
     public void testbewegung(){
         blau_1.figur.einsteigen();
-        blau_1.figur.alle_felder_ziehen(39);
+        blau_1.figur.alle_felder_ziehen(0);
         bewege_figur_bild(blau_1.figur);
         blau_2.figur.einsteigen();
-        blau_2.figur.alle_felder_ziehen(2);
+        blau_2.figur.alle_felder_ziehen(1);
         bewege_figur_bild(blau_2.figur);
         blau_3.figur.einsteigen();
-        blau_3.figur.alle_felder_ziehen(1);
+        blau_3.figur.alle_felder_ziehen(2);
         bewege_figur_bild(blau_3.figur);
         blau_4.figur.einsteigen();
-        blau_4.figur.alle_felder_ziehen(0);
+        blau_4.figur.alle_felder_ziehen(3);
         bewege_figur_bild(blau_4.figur);
         
 
 
         gruen_1.figur.einsteigen();
-        bewege_figur_bild(gruen_1.figur);
-        gruen_1.figur.alle_felder_ziehen(39);
+        gruen_1.figur.alle_felder_ziehen(0);
         bewege_figur_bild(gruen_1.figur);
 
         gruen_2.figur.einsteigen();
-        bewege_figur_bild(gruen_2.figur);
-        gruen_2.figur.alle_felder_ziehen(39);
+        gruen_2.figur.alle_felder_ziehen(1);
         bewege_figur_bild(gruen_2.figur);
 
+        gruen_3.figur.einsteigen();
+        gruen_3.figur.alle_felder_ziehen(2);
+        bewege_figur_bild(gruen_3.figur);
+
+        gruen_4.figur.einsteigen();
+        gruen_4.figur.alle_felder_ziehen(3);
+        bewege_figur_bild(gruen_4.figur);
+
+
         rot_1.figur.einsteigen();
+        rot_1.figur.alle_felder_ziehen(0);
         bewege_figur_bild(rot_1.figur);
-        rot_1.figur.alle_felder_ziehen(39);
-        bewege_figur_bild(rot_1.figur);
+
+        rot_2.figur.einsteigen();
+        rot_2.figur.alle_felder_ziehen(1);
+        bewege_figur_bild(rot_2.figur);
+
+        rot_3.figur.einsteigen();
+        rot_3.figur.alle_felder_ziehen(2);
+        bewege_figur_bild(rot_3.figur);
+
+        rot_4.figur.einsteigen();
+        rot_4.figur.alle_felder_ziehen(3);
+        bewege_figur_bild(rot_4.figur);
+
+
+
 
         layerPane.repaint();
         layerPane.revalidate();

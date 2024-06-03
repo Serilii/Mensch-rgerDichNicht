@@ -39,7 +39,7 @@ public boolean prüfe_ob_ziel_frei(int Anzahl){
 		if (check.figur != null  && check.figur.farbe == this.farbe) {	//wenn das Zielfeld mit einer Figur dieser Farbe besetzt ist: nix
 			return false;
 		}	else if (check.figur!= null && check.figur.farbe != this.farbe) { //wenn das Zielfeld mit einer Figur einer anderen Farbe besetzt ist: rauswerfen und hinlaufen
-			check.figur.rausfliegen();
+			// check.figur.rausfliegen();
 			return true;			// wenn das Feld leer ist( also ausschlussverfahren ) dann grünes Licht und lets go
 		} 	else if(check_gezogene_felder >= 43) { // wenn man über das letzte parkenFeld drüber ziehen würde, dann nicht	
 			return false;
