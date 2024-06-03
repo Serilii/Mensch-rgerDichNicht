@@ -17,3 +17,9 @@ public class start {
 	}
 	
 }
+
+/*	notizen
+ * 	Figuren können in den parkfeldern zu hoch würfeln und trotzdem aufziehen. Regeln nachschauen
+ *  Wenn Figuren geparkt sind und alle anderen aus (also keine figur da die man bewegen KÖNNTE) kann man trotzdem nur einmal würfeln -> muss auf 3 und man muss weitergeben können sonst hängt sich das spiel auf weil man nichts bewegen kann lmao
+ * 
+ */
