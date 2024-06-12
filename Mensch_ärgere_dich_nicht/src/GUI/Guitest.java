@@ -6,6 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Guitest implements ActionListener {
+
+    public static int width = 700;
+    public static int height = 700;
+
+    int panel_links_breite = (width / 5);
+    int panel_oben_hoehe = (height / 5);
+
     JFrame fenster;
     JPanel panel_border_main;
     JPanel panel_oben;
@@ -65,7 +72,7 @@ public class Guitest implements ActionListener {
     //generiert das Fenster, zeichnet die Figuren rein vom Spielfeld die man übergibt
     public Guitest(Spielfeld sf) {
         fenster = new JFrame("Ich bin eine GUI");
-        fenster.setSize(1100,1100);
+        fenster.setSize(width,height);
         fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fenster.getContentPane().setBackground(Color.PINK);
         fenster.setResizable(false);
@@ -75,14 +82,19 @@ public class Guitest implements ActionListener {
         GUI_vererbungs_kette(this.sf);
 
         panel_border_main = new JPanel();
-        panel_border_main.setBounds(0,0,1100,1100);
+        panel_border_main.setBounds(0,0,width,height);
         panel_border_main.setLayout(new BorderLayout());
         
         //Unterpanele 
         panel_oben  = new JPanel();
+        panel_oben.setSize(new Dimension( width/ 5, panel_oben_hoehe));
+
         panel_links = new JPanel();
+        panel_links.setSize(new Dimension(panel_links_breite, height/5 ));
+        
         panel_mitte = new Spielbrett_Panel();
         panel_mitte.setDoubleBuffered(true);
+
 
         //buttons  
         button_links_1 = new JButton("Figur 1");
@@ -96,11 +108,11 @@ public class Guitest implements ActionListener {
         // panel_links.add(Box.createRigidArea(new Dimension(0,5)));           // <--- damit kann man manuel Abstände zwischen Buttons machen
     
         layerPane = new JLayeredPane(); 
-        layerPane.setBounds(0,0,1100, 1100);
+        layerPane.setBounds(0,0,width, height);
         layerPane.setDoubleBuffered(true);
 
         layerPane_buffer = new JLayeredPane(); 
-        layerPane_buffer.setBounds(0,0,1100, 1100);
+        layerPane_buffer.setBounds(0,0,width, height);
         layerPane.setDoubleBuffered(true);
 
         //erstelle die FigurenPanele, verbinde sie hin undzurück mit den übergebenen Figuren, und packe sie in arrays zum iterieren
@@ -400,20 +412,8 @@ public class Guitest implements ActionListener {
         Guitest Gui = new Guitest(sf);
 
         Gui.testbewegung();
-
-        // sf.spielerwechsel();
-        // sf.Farbe_am_Zug = sf.Grün;
-        // sf.iterator = 3;
-        // sf.Farbe_am_Zug = sf.Rot;
-        // Gui.besetze_alle_buttons();
         Gui.redraw();
 
-
-        // Gui.testbewegung();
-                // for (int i = 0; i < 50; i++ ){
-                //     Thread.sleep(100);
-                //     Gui.testbewegung();
-                //     }
     }}
         
 
